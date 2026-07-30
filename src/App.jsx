@@ -7,13 +7,11 @@ import QuoteCalculator from './components/Contact/QuoteCalculator';
 
 // ── Main Aram Architecture Pages ─────────────────────────────────────────────
 import HomePage     from './pages/HomePage';
-import AboutPage    from './pages/AboutPage';
 import ServicesPage from './pages/ServicesPage';
 import ProjectsPage from './pages/ProjectsPage';
 
 // ── Saalaram Solutions Sub-Domain Pages ──────────────────────────────────────
 import SaalaramHome     from './pages/saalaram/SaalaramHome';
-import SaalaramAbout    from './pages/saalaram/SaalaramAbout';
 import SaalaramProducts from './pages/saalaram/SaalaramProducts';
 
 import AdminDashboard from './components/Admin/AdminDashboard';
@@ -48,14 +46,14 @@ export default function App() {
 
         {/* ── Aram Architecture Routes ── */}
         <Route path="/home"      element={<HomePage    onOpenQuoteModal={handleOpenQuoteModal} />} />
-        <Route path="/aboutus"   element={<AboutPage   onOpenQuoteModal={handleOpenQuoteModal} />} />
-        <Route path="/about"     element={<Navigate to="/aboutus" replace />} />
+        <Route path="/aboutus"   element={<Navigate to="/home#about-us" replace />} />
+        <Route path="/about"     element={<Navigate to="/home#about-us" replace />} />
         <Route path="/services"  element={<ServicesPage onOpenQuoteModal={handleOpenQuoteModal} />} />
         <Route path="/projects"  element={<ProjectsPage onOpenQuoteModal={handleOpenQuoteModal} />} />
 
         {/* ── Saalaram Solutions Sub-Domain Routes ── */}
         <Route path="/saalaram"          element={<SaalaramHome     onOpenQuoteModal={handleOpenQuoteModal} />} />
-        <Route path="/saalaram/aboutus"  element={<SaalaramAbout    onOpenQuoteModal={handleOpenQuoteModal} />} />
+        <Route path="/saalaram/aboutus"  element={<Navigate to="/saalaram#about-us" replace />} />
         <Route path="/saalaram/products" element={<SaalaramProducts onOpenQuoteModal={handleOpenQuoteModal} />} />
 
         <Route path="/admin"     element={<AdminDashboard />} />

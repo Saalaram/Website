@@ -21,6 +21,16 @@ export default function Footer({ onOpenQuoteModal }) {
     }
   };
 
+  const handleAboutUs = () => {
+    const targetPath = isSaalaramPortal ? '/saalaram' : '/home';
+    const el = document.getElementById('about-us');
+    if (el && ((isSaalaramPortal && pathname === '/saalaram') || (!isSaalaramPortal && pathname === '/home'))) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      navigate(`${targetPath}#about-us`);
+    }
+  };
+
   return (
     <footer
       style={{
@@ -38,45 +48,38 @@ export default function Footer({ onOpenQuoteModal }) {
           gap: '55px',
           paddingBottom: '55px',
         }}>
-          {/* Col 1 — Brand */}
+          {/* Col 1 — Brand info */}
           <div>
-            <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '22px' }}>
-              {isSaalaramPortal ? (
-                <img
-                  src="/assets/logos/Saalaram_Transparent.png"
-                  alt="Saalaram Solutions"
-                  style={{ height: '56px', width: 'auto', objectFit: 'contain', maxHeight: '56px' }}
-                />
-              ) : (
-                <img
-                  src="/assets/logos/Aram_Logo_Color_Transaparent.png"
-                  alt="Aram Architecture"
-                  style={{ height: '68px', width: 'auto', objectFit: 'contain', maxHeight: '68px' }}
-                />
-              )}
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '18px' }}>
+              <img
+                src={isSaalaramPortal ? "/assets/logos/Saalaram_Transparent.png" : "/assets/logos/Aram_Logo_Color_Transaparent.png"}
+                alt="Saalaram"
+                style={{ height: '48px', width: 'auto', objectFit: 'contain' }}
+              />
             </div>
-            <p style={{ fontSize: '0.9rem', lineHeight: '1.7', maxWidth: '340px', marginBottom: '28px' }}>
+            <p style={{ fontSize: '0.88rem', lineHeight: '1.75', marginBottom: '22px', maxWidth: '300px' }}>
               {isSaalaramPortal
-                ? 'South India’s premier manufacturer and installer of acoustic uPVC windows, aluminum entrance doors, motorized blinds, and architectural lighting systems.'
-                : 'Premier civil engineering consultancy and construction firm, paired with luxury windows, doors, blinds, and architectural glazing solutions across Tamil Nadu.'
-              }
+                ? 'High-performance uPVC & aluminum windows, doors, blinds, and architectural lighting for South India.'
+                : 'Turnkey civil engineering, architectural design, structural consulting, and project management excellence.'}
             </p>
+
             <div style={{ display: 'flex', gap: '10px' }}>
-              {['Fb', 'Ig', 'Li', 'Yt'].map((s) => (
-                <div
-                  key={s}
+              {['Facebook', 'Instagram', 'LinkedIn', 'YouTube'].map((social, i) => (
+                <a
+                  key={i}
+                  href="#"
                   style={{
-                    width: '40px', height: '40px',
-                    border: '1px solid rgba(255,255,255,0.14)',
+                    width: '34px', height: '34px',
+                    border: '1px solid rgba(255,255,255,0.12)',
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    color: '#fff', fontSize: '0.72rem', fontWeight: 700,
-                    cursor: 'pointer', transition: 'all 0.3s ease',
+                    color: 'rgba(255,255,255,0.6)', fontSize: '0.72rem',
+                    transition: 'all 0.2s ease', textDecoration: 'none',
                   }}
-                  onMouseEnter={e => { e.currentTarget.style.background = isSaalaramPortal ? '#2563eb' : 'var(--primary)'; e.currentTarget.style.borderColor = isSaalaramPortal ? '#2563eb' : 'var(--primary)'; e.currentTarget.style.color = '#fff'; }}
-                  onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.14)'; e.currentTarget.style.color = '#fff'; }}
+                  onMouseEnter={(e) => { e.currentTarget.style.borderColor = 'var(--primary)'; e.currentTarget.style.color = 'var(--primary)'; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.borderColor = 'rgba(255,255,255,0.12)'; e.currentTarget.style.color = 'rgba(255,255,255,0.6)'; }}
                 >
-                  {s}
-                </div>
+                  {social[0]}
+                </a>
               ))}
             </div>
           </div>
@@ -90,7 +93,7 @@ export default function Footer({ onOpenQuoteModal }) {
               {isSaalaramPortal ? (
                 <>
                   <li><button onClick={() => goTo('/saalaram')} style={linkStyle}>Home</button></li>
-                  <li><button onClick={() => goTo('/saalaram/aboutus')} style={linkStyle}>About Us</button></li>
+                  <li><button onClick={handleAboutUs} style={linkStyle}>About Us</button></li>
                   <li><button onClick={() => goTo('/saalaram/products')} style={linkStyle}>Products</button></li>
                   <li><button onClick={handleContactUs} style={linkStyle}>Contact Us</button></li>
                   <li>
@@ -105,7 +108,7 @@ export default function Footer({ onOpenQuoteModal }) {
               ) : (
                 <>
                   <li><button onClick={() => goTo('/home')} style={linkStyle}>Home</button></li>
-                  <li><button onClick={() => goTo('/aboutus')} style={linkStyle}>About Us</button></li>
+                  <li><button onClick={handleAboutUs} style={linkStyle}>About Us</button></li>
                   <li><button onClick={() => goTo('/services')} style={linkStyle}>Services</button></li>
                   <li><button onClick={() => goTo('/projects')} style={linkStyle}>Projects</button></li>
                   <li><button onClick={onOpenQuoteModal} style={linkStyle}>Get a Quote</button></li>

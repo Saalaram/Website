@@ -13,13 +13,15 @@ export default function HomePage({ onOpenQuoteModal }) {
         <HeroSection onOpenQuoteModal={onOpenQuoteModal} />
       </div>
 
-      {/* ② Civil Engineering Services */}
+      {/* ② About Us Section */}
+      <div id="about-us">
+        <AboutSection onOpenQuoteModal={onOpenQuoteModal} />
+      </div>
+
+      {/* ③ Civil Engineering Services */}
       <div id="engineering">
         <EngineeringServices onOpenQuoteModal={onOpenQuoteModal} />
       </div>
-
-      {/* ③ About + Process + CTA + Contact Strip */}
-      <AboutSection onOpenQuoteModal={onOpenQuoteModal} />
 
       {/* ④ Firebase Portfolio Gallery */}
       <div id="gallery">

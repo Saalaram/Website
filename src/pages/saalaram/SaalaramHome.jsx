@@ -146,6 +146,54 @@ export default function SaalaramHome({ onOpenQuoteModal }) {
         </div>
       </section>
 
+      {/* ── ABOUT US SECTION ── */}
+      <section id="about-us" style={{ padding: '90px 0', background: '#09101f', borderBottom: '1px solid rgba(59,130,246,0.15)' }}>
+        <div className="container">
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '70px', alignItems: 'center' }}>
+            <div>
+              <div style={{ color: '#60a5fa', fontSize: '0.78rem', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: '12px' }}>
+                About Saalaram Solutions
+              </div>
+              <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: '2.4rem', color: '#fff', fontWeight: 600, lineHeight: 1.15, marginBottom: '24px' }}>
+                Pioneering High-Performance Fenestration & Architectural Lighting
+              </h2>
+              <p style={{ color: 'rgba(255,255,255,0.65)', fontSize: '1rem', lineHeight: '1.78', marginBottom: '20px' }}>
+                Saalaram Solutions is South India’s premier manufacturer and installer of acoustic uPVC windows, architectural aluminum doors, motorized blinds, and luxury lighting systems.
+              </p>
+              <p style={{ color: 'rgba(255,255,255,0.65)', fontSize: '1rem', lineHeight: '1.78', marginBottom: '32px' }}>
+                Combining precision German hardware with ISO-certified fabrication, every window and door is engineered to withstand tropical heat, monsoon wind loads, and urban noise pollution.
+              </p>
+
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+                {[
+                  '10,000+ Window Units Installed',
+                  'ISO 9001:2015 Certified Plant',
+                  'German Multi-Point Locks',
+                  'Acoustic STC Rating Up to 42dB',
+                ].map((item, i) => (
+                  <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+                    <ShieldCheck size={18} color="#60a5fa" style={{ flexShrink: 0 }} />
+                    <span style={{ color: '#fff', fontSize: '0.88rem', fontWeight: 600 }}>{item}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div style={{ background: '#111d33', border: '1px solid rgba(59,130,246,0.3)', padding: '24px' }}>
+              <img
+                src="/assets/logos/Saalaram.jpeg"
+                alt="Saalaram Solutions"
+                style={{ width: '100%', height: 'auto', display: 'block' }}
+              />
+              <div style={{ padding: '24px 20px 10px', color: 'rgba(255,255,255,0.7)', fontSize: '0.9rem', lineHeight: '1.7' }}>
+                <strong style={{ color: '#fff', display: 'block', fontSize: '1.1rem', marginBottom: '8px' }}>Saalaram Solutions Brand Legacy</strong>
+                Engineered fenestration and lighting solutions tailored for luxury villas, high-rise apartments, and commercial complexes across Tamil Nadu.
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ── USP STRIP ── */}
       <section style={{ background: '#0e172a', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
         <div className="container">

@@ -14,27 +14,46 @@ export default function Navbar({ onOpenQuoteModal }) {
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  // Close mobile menu on route change
-  useEffect(() => { setMobileOpen(false); }, [pathname]);
+  // Close mobile menu on route change & handle hash navigation
+  useEffect(() => {
+    setMobileOpen(false);
+    if (window.location.hash === '#about-us') {
+      setTimeout(() => {
+        const el = document.getElementById('about-us');
+        if (el) el.scrollIntoView({ behavior: 'smooth' });
+      }, 150);
+    }
+  }, [pathname]);
 
   const isSaalaramPortal = pathname.startsWith('/saalaram');
 
   const aramNavItems = [
-    { path: '/home',     label: 'Home'     },
-    { path: '/aboutus',  label: 'About Us' },
+    { path: '/home', label: 'Home' },
+    { path: 'about-us', label: 'About Us', isAnchor: true },
     { path: '/services', label: 'Services' },
     { path: '/projects', label: 'Projects' },
   ];
 
   const saalaramNavItems = [
-    { path: '/saalaram',          label: 'Home'     },
-    { path: '/saalaram/aboutus',  label: 'About Us' },
+    { path: '/saalaram', label: 'Home' },
+    { path: 'about-us', label: 'About Us', isAnchor: true },
     { path: '/saalaram/products', label: 'Products' },
   ];
 
   const goTo = (path) => {
     navigate(path);
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const handleAboutUs = () => {
+    setMobileOpen(false);
+    const targetPath = isSaalaramPortal ? '/saalaram' : '/home';
+    const el = document.getElementById('about-us');
+    if (el && ((isSaalaramPortal && pathname === '/saalaram') || (!isSaalaramPortal && pathname === '/home'))) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      navigate(`${targetPath}#about-us`);
+    }
   };
 
   const handleContactUs = () => {
@@ -52,7 +71,38 @@ export default function Navbar({ onOpenQuoteModal }) {
     onOpenQuoteModal();
   };
 
-  const isActive = (path) => pathname === path;
+  const [isAboutInView, setIsAboutInView] = useState(false);
+
+  useEffect(() => {
+    const el = document.getElementById('about-us');
+    if (!el) {
+      setIsAboutInView(false);
+      return;
+    }
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsAboutInView(entry.isIntersecting);
+      },
+      {
+        threshold: 0.15,
+        rootMargin: '-88px 0px -15% 0px'
+      }
+    );
+
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [pathname]);
+
+  const isItemActive = (item) => {
+    if (item.isAnchor) {
+      return isAboutInView;
+    }
+    if (isAboutInView && (item.path === '/home' || item.path === '/saalaram')) {
+      return false;
+    }
+    return pathname === item.path;
+  };
 
   return (
     <>
@@ -97,14 +147,14 @@ export default function Navbar({ onOpenQuoteModal }) {
             {isSaalaramPortal ? (
               /* ── SAALARAM NAV ITEMS ── */
               <>
-                {saalaramNavItems.map(({ path, label }) => (
-                  <li key={path}>
+                {saalaramNavItems.map((item) => (
+                  <li key={item.path}>
                     <button
-                      onClick={() => goTo(path)}
-                      className={`nav-link ${isActive(path) ? 'active' : ''}`}
-                      style={{ color: isActive(path) ? '#60a5fa' : 'rgba(255,255,255,0.85)' }}
+                      onClick={() => item.isAnchor ? handleAboutUs() : goTo(item.path)}
+                      className={`nav-link ${isItemActive(item) ? 'active' : ''}`}
+                      style={{ color: isItemActive(item) ? '#60a5fa' : 'rgba(255,255,255,0.85)' }}
                     >
-                      {label}
+                      {item.label}
                     </button>
                   </li>
                 ))}
@@ -156,13 +206,13 @@ export default function Navbar({ onOpenQuoteModal }) {
             ) : (
               /* ── ARAM ARCHITECTURE NAV ITEMS ── */
               <>
-                {aramNavItems.map(({ path, label }) => (
-                  <li key={path}>
+                {aramNavItems.map((item) => (
+                  <li key={item.path}>
                     <button
-                      onClick={() => goTo(path)}
-                      className={`nav-link ${isActive(path) ? 'active' : ''}`}
+                      onClick={() => item.isAnchor ? handleAboutUs() : goTo(item.path)}
+                      className={`nav-link ${isItemActive(item) ? 'active' : ''}`}
                     >
-                      {label}
+                      {item.label}
                     </button>
                   </li>
                 ))}
@@ -177,15 +227,15 @@ export default function Navbar({ onOpenQuoteModal }) {
                   </button>
                 </li>
 
-                {/* SAALARAM — Highlighted Sapphire Blue Button */}
+                {/* SAALARAM — Highlighted Button matching Saalaram Logo */}
                 <li>
                   <button
                     onClick={() => goTo('/saalaram')}
                     id="saalaram-nav-btn"
                     style={{
                       padding: '10px 22px',
-                      background: '#2563eb',
-                      border: '1px solid #3b82f6',
+                      background: '#1250b5',
+                      border: '1px solid #4085f5',
                       color: '#ffffff',
                       fontSize: '0.88rem',
                       fontWeight: 800,
@@ -194,16 +244,16 @@ export default function Navbar({ onOpenQuoteModal }) {
                       textTransform: 'uppercase',
                       cursor: 'pointer',
                       transition: 'all 0.3s ease',
-                      boxShadow: '0 0 18px rgba(37,99,235,0.45)',
+                      boxShadow: '0 0 18px rgba(30,41,59,0.5)',
                     }}
                     onMouseEnter={e => {
-                      e.currentTarget.style.background = '#1d4ed8';
-                      e.currentTarget.style.boxShadow = '0 0 28px rgba(37,99,235,0.65)';
+                      e.currentTarget.style.background = '#4085f5';
+                      e.currentTarget.style.boxShadow = '0 0 26px rgba(51,65,85,0.7)';
                       e.currentTarget.style.transform = 'translateY(-2px)';
                     }}
                     onMouseLeave={e => {
-                      e.currentTarget.style.background = '#2563eb';
-                      e.currentTarget.style.boxShadow = '0 0 18px rgba(37,99,235,0.45)';
+                      e.currentTarget.style.background = '#1250b5';
+                      e.currentTarget.style.boxShadow = '0 0 18px rgba(30,41,59,0.5)';
                       e.currentTarget.style.transform = 'translateY(0)';
                     }}
                   >
@@ -258,19 +308,20 @@ export default function Navbar({ onOpenQuoteModal }) {
           }}>
             {isSaalaramPortal ? (
               <>
-                {saalaramNavItems.map(({ path, label }) => (
+                {saalaramNavItems.map((item) => (
                   <button
-                    key={path}
-                    onClick={() => goTo(path)}
+                    key={item.path}
+                    onClick={() => item.isAnchor ? handleAboutUs() : goTo(item.path)}
                     style={{
                       textAlign: 'left',
-                      color: isActive(path) ? '#60a5fa' : 'rgba(255,255,255,0.85)',
+                      color: isItemActive(item) ? '#60a5fa' : 'rgba(255,255,255,0.85)',
                       fontSize: '1.05rem', fontWeight: 600,
                       fontFamily: 'Manrope, sans-serif', background: 'none',
                       border: 'none', cursor: 'pointer', padding: 0,
+                      textDecoration: isItemActive(item) ? 'underline' : 'none',
                     }}
                   >
-                    {label}
+                    {item.label}
                   </button>
                 ))}
                 <button
@@ -300,19 +351,20 @@ export default function Navbar({ onOpenQuoteModal }) {
               </>
             ) : (
               <>
-                {aramNavItems.map(({ path, label }) => (
+                {aramNavItems.map((item) => (
                   <button
-                    key={path}
-                    onClick={() => goTo(path)}
+                    key={item.path}
+                    onClick={() => item.isAnchor ? handleAboutUs() : goTo(item.path)}
                     style={{
                       textAlign: 'left',
-                      color: isActive(path) ? 'var(--primary)' : 'rgba(255,255,255,0.85)',
+                      color: isItemActive(item) ? 'var(--primary)' : 'rgba(255,255,255,0.85)',
                       fontSize: '1.05rem', fontWeight: 600,
                       fontFamily: 'Manrope, sans-serif', background: 'none',
                       border: 'none', cursor: 'pointer', padding: 0,
+                      textDecoration: isItemActive(item) ? 'underline' : 'none',
                     }}
                   >
-                    {label}
+                    {item.label}
                   </button>
                 ))}
                 <button
@@ -330,7 +382,7 @@ export default function Navbar({ onOpenQuoteModal }) {
                   <button
                     onClick={() => goTo('/saalaram')}
                     style={{
-                      padding: '12px 24px', background: '#2563eb', border: '1px solid #3b82f6',
+                      padding: '12px 24px', background: '#1250b5', border: '1px solid #4085f5',
                       color: '#fff', fontSize: '0.9rem', fontWeight: 800,
                       fontFamily: 'Manrope, sans-serif', letterSpacing: '0.12em',
                       textTransform: 'uppercase', cursor: 'pointer', width: '100%',

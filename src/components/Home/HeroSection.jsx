@@ -1,12 +1,11 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { ArrowRight, ArrowLeft, ChevronDown } from 'lucide-react';
 
 const SLIDES = [
   {
     id: 1,
-    // Construction workers on a building site with scaffolding
-    image: 'https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=2000&q=90',
+    image: '/assets/images/Aram-Slider-1.png',
     kicker: 'Turnkey Civil Engineering',
     headline: ['We engineer', 'spaces that', 'last generations.'],
     sub: 'From foundation to rooftop — structural precision, luxury finish.',
@@ -18,8 +17,7 @@ const SLIDES = [
   },
   {
     id: 2,
-    // Modern high-rise apartment under construction with cranes
-    image: 'https://images.unsplash.com/photo-1486325212027-8081e485255e?auto=format&fit=crop&w=2000&q=90',
+    image: '/assets/images/Aram-Slider-2.png',
     kicker: 'Premium Architectural Products',
     headline: ['Elevate every', 'opening with', 'precision craft.'],
     sub: 'Soundproof windows, thermal doors & motorized blinds — built different.',
@@ -30,8 +28,7 @@ const SLIDES = [
   },
   {
     id: 3,
-    // Luxury completed villa exterior — verified working
-    image: 'https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&w=2000&q=90',
+    image: '/assets/images/Aram-Slider-3.png',
     kicker: 'Portfolio of Excellence',
     headline: ['150+ projects.', 'One standard —', 'perfection.'],
     sub: 'Explore our delivered projects across Tamil Nadu and beyond.',
@@ -77,7 +74,7 @@ export default function HeroSection({ onOpenQuoteModal }) {
   const slide = SLIDES[current];
 
   return (
-    <section style={{ position: 'relative', height: '100vh', minHeight: '700px', overflow: 'hidden' }}>
+    <section style={{ position: 'relative', height: 'calc(100vh - 88px)', minHeight: '650px', marginTop: '88px', overflow: 'hidden' }}>
 
       {/* Background image with cross-fade */}
       {SLIDES.map((s, i) => (
@@ -112,8 +109,8 @@ export default function HeroSection({ onOpenQuoteModal }) {
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
-        paddingTop: '130px',   /* navbar ~88px + 42px breathing room */
-        paddingBottom: '140px',
+        paddingTop: '40px',
+        paddingBottom: '120px',
         gap: '40px',
       }}>
         <div style={{ maxWidth: '640px', flexShrink: 0 }}>
@@ -185,77 +182,6 @@ export default function HeroSection({ onOpenQuoteModal }) {
             <button onClick={onOpenQuoteModal} className="btn btn-secondary">
               Book Free Consultation
             </button>
-          </div>
-        </div>
-
-        {/* Right-side floating construction image panel */}
-        <div style={{
-          display: 'none',
-          flexDirection: 'column',
-          gap: '16px',
-          flexShrink: 0,
-          width: '320px',
-          opacity: visible ? 1 : 0,
-          transform: visible ? 'translateX(0)' : 'translateX(30px)',
-          transition: 'opacity 0.7s ease 0.35s, transform 0.7s ease 0.35s',
-        }} className="hero-side-panel">
-          {/* Main side image */}
-          <div style={{ position: 'relative', overflow: 'hidden' }}>
-            <img
-              src={slide.sideImage}
-              alt={slide.sideCaption}
-              style={{
-                width: '100%',
-                height: '260px',
-                objectFit: 'cover',
-                display: 'block',
-              }}
-            />
-            {/* Caption overlay */}
-            <div style={{
-              position: 'absolute',
-              bottom: 0, left: 0, right: 0,
-              padding: '12px 16px',
-              background: 'linear-gradient(transparent, rgba(10,10,10,0.85))',
-              display: 'flex',
-              alignItems: 'center',
-              gap: '8px',
-            }}>
-              <span style={{ width: '24px', height: '1px', background: 'var(--primary)', display: 'block', flexShrink: 0 }} />
-              <span style={{ color: 'rgba(255,255,255,0.8)', fontSize: '0.7rem', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase' }}>
-                {slide.sideCaption}
-              </span>
-            </div>
-          </div>
-
-          {/* Two smaller thumbnail images */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '10px' }}>
-            <div style={{ position: 'relative', overflow: 'hidden' }}>
-              <img
-                src="https://images.unsplash.com/photo-1503387762-592deb58ef4e?auto=format&fit=crop&w=400&q=80"
-                alt="Construction foundation work"
-                style={{ width: '100%', height: '140px', objectFit: 'cover', display: 'block' }}
-              />
-              <div style={{
-                position: 'absolute', top: '8px', left: '8px',
-                background: 'var(--primary)',
-                color: 'var(--dark)', fontSize: '0.6rem', fontWeight: 800,
-                padding: '3px 7px', letterSpacing: '0.1em', textTransform: 'uppercase',
-              }}>Structure</div>
-            </div>
-            <div style={{ position: 'relative', overflow: 'hidden' }}>
-              <img
-                src="https://images.unsplash.com/photo-1541123437800-1bb1317badc2?auto=format&fit=crop&w=400&q=80"
-                alt="Architectural blueprint"
-                style={{ width: '100%', height: '140px', objectFit: 'cover', display: 'block' }}
-              />
-              <div style={{
-                position: 'absolute', top: '8px', left: '8px',
-                background: 'var(--primary)',
-                color: 'var(--dark)', fontSize: '0.6rem', fontWeight: 800,
-                padding: '3px 7px', letterSpacing: '0.1em', textTransform: 'uppercase',
-              }}>Blueprint</div>
-            </div>
           </div>
         </div>
       </div>
