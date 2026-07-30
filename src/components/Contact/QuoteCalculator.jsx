@@ -18,7 +18,7 @@ import { submitQuoteInquiry } from '../../firebase/api';
 
 export default function QuoteCalculator({ defaultSubject = '', isOpenModal = false, onCloseModal }) {
   const [category, setCategory] = useState(
-    defaultSubject.includes('Product') ? 'Products' : 'Civil Engineering'
+    (defaultSubject || '').includes('Product') ? 'Products' : 'Civil Engineering'
   );
   
   // Engineering State

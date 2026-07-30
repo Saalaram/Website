@@ -1,17 +1,35 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import { MapPin, Phone, Mail, ArrowRight } from 'lucide-react';
 
 export default function Footer({ onOpenQuoteModal }) {
   const navigate = useNavigate();
+  const { pathname } = useLocation();
+  const isSaalaramPortal = pathname.startsWith('/saalaram');
 
   const goTo = (path) => {
     navigate(path);
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  const handleContactUs = () => {
+    const element = document.getElementById('contact-us');
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    } else {
+      navigate('/saalaram#contact-us');
+    }
+  };
+
   return (
-    <footer style={{ background: '#111210', color: 'rgba(255,255,255,0.65)', paddingTop: '75px' }}>
+    <footer
+      style={{
+        background: isSaalaramPortal ? '#070d19' : '#111210',
+        color: 'rgba(255,255,255,0.65)',
+        paddingTop: '75px',
+        borderTop: isSaalaramPortal ? '1px solid rgba(59,130,246,0.2)' : 'none',
+      }}
+    >
       <div className="container">
         {/* 4-col grid */}
         <div style={{
@@ -23,107 +41,112 @@ export default function Footer({ onOpenQuoteModal }) {
           {/* Col 1 — Brand */}
           <div>
             <div style={{ display: 'flex', alignItems: 'center', gap: '12px', marginBottom: '22px' }}>
-              <div style={{
-                width: '42px', height: '42px',
-                border: '1px solid var(--primary)',
-                display: 'flex', alignItems: 'center', justifyContent: 'center',
-                color: 'var(--primary)',
-                fontFamily: "'Playfair Display', serif",
-                fontSize: '1.4rem', fontWeight: 700,
-              }}>S</div>
-              <div>
-                <strong style={{ display: 'block', fontFamily: "'Playfair Display', serif", fontSize: '1.18rem', color: '#fff', lineHeight: 1 }}>Saalaram</strong>
-                <span style={{ color: 'rgba(255,255,255,0.45)', fontSize: '0.6rem', letterSpacing: '0.2em', textTransform: 'uppercase' }}>Engineering & Architectural Products</span>
-              </div>
+              {isSaalaramPortal ? (
+                <img
+                  src="/assets/logos/Saalaram_Transparent.png"
+                  alt="Saalaram Solutions"
+                  style={{ height: '56px', width: 'auto', objectFit: 'contain', maxHeight: '56px' }}
+                />
+              ) : (
+                <img
+                  src="/assets/logos/Aram_Logo_Color_Transaparent.png"
+                  alt="Aram Architecture"
+                  style={{ height: '68px', width: 'auto', objectFit: 'contain', maxHeight: '68px' }}
+                />
+              )}
             </div>
             <p style={{ fontSize: '0.9rem', lineHeight: '1.7', maxWidth: '340px', marginBottom: '28px' }}>
-              Premier civil engineering consultancy and construction firm, paired with luxury windows, doors, blinds, and architectural glazing solutions across Tamil Nadu.
+              {isSaalaramPortal
+                ? 'South India’s premier manufacturer and installer of acoustic uPVC windows, aluminum entrance doors, motorized blinds, and architectural lighting systems.'
+                : 'Premier civil engineering consultancy and construction firm, paired with luxury windows, doors, blinds, and architectural glazing solutions across Tamil Nadu.'
+              }
             </p>
             <div style={{ display: 'flex', gap: '10px' }}>
               {['Fb', 'Ig', 'Li', 'Yt'].map((s) => (
-                <div key={s} style={{
-                  width: '40px', height: '40px',
-                  border: '1px solid rgba(255,255,255,0.14)',
-                  display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  color: '#fff', fontSize: '0.72rem', fontWeight: 700,
-                  cursor: 'pointer', transition: 'all 0.3s ease',
-                }}
-                  onMouseEnter={e => { e.currentTarget.style.background = 'var(--primary)'; e.currentTarget.style.borderColor = 'var(--primary)'; e.currentTarget.style.color = '#111'; }}
+                <div
+                  key={s}
+                  style={{
+                    width: '40px', height: '40px',
+                    border: '1px solid rgba(255,255,255,0.14)',
+                    display: 'flex', alignItems: 'center', justifyContent: 'center',
+                    color: '#fff', fontSize: '0.72rem', fontWeight: 700,
+                    cursor: 'pointer', transition: 'all 0.3s ease',
+                  }}
+                  onMouseEnter={e => { e.currentTarget.style.background = isSaalaramPortal ? '#2563eb' : 'var(--primary)'; e.currentTarget.style.borderColor = isSaalaramPortal ? '#2563eb' : 'var(--primary)'; e.currentTarget.style.color = '#fff'; }}
                   onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.14)'; e.currentTarget.style.color = '#fff'; }}
-                >{s}</div>
+                >
+                  {s}
+                </div>
               ))}
             </div>
           </div>
 
           {/* Col 2 — Quick Links */}
           <div>
-            <h4 style={{ color: '#fff', fontSize: '1rem', fontWeight: 700, marginBottom: '22px' }}>Quick Links</h4>
+            <h4 style={{ color: '#fff', fontSize: '1rem', fontWeight: 700, marginBottom: '22px' }}>
+              {isSaalaramPortal ? 'Saalaram Portal' : 'Quick Links'}
+            </h4>
             <ul style={{ display: 'flex', flexDirection: 'column', gap: '11px', listStyle: 'none' }}>
-              {[
-                { label: 'Home',      path: '/home'     },
-                { label: 'About Us',  path: '/aboutus'  },
-                { label: 'Services',  path: '/services' },
-                { label: 'Projects',  path: '/projects' },
-                { label: 'SAALARAM',  path: '/saalaram' },
-              ].map(({ label, path }) => (
-                <li key={path}>
-                  <button onClick={() => goTo(path)} style={{
-                    background: 'none', border: 'none', cursor: 'pointer',
-                    color: path === '/saalaram' ? 'var(--primary)' : 'rgba(255,255,255,0.65)',
-                    fontSize: '0.92rem',
-                    fontFamily: 'Manrope, sans-serif',
-                    fontWeight: path === '/saalaram' ? 700 : 400,
-                    padding: 0, textAlign: 'left',
-                    transition: 'all 0.3s ease',
-                  }}
-                    onMouseEnter={e => { e.currentTarget.style.color = 'var(--primary)'; e.currentTarget.style.paddingLeft = '4px'; }}
-                    onMouseLeave={e => { e.currentTarget.style.color = path === '/saalaram' ? 'var(--primary)' : 'rgba(255,255,255,0.65)'; e.currentTarget.style.paddingLeft = '0'; }}
-                  >
-                    {label}
-                  </button>
-                </li>
-              ))}
-              <li>
-                <button onClick={onOpenQuoteModal} style={{
-                  background: 'none', border: 'none', cursor: 'pointer',
-                  color: 'rgba(255,255,255,0.65)', fontSize: '0.92rem',
-                  fontFamily: 'Manrope, sans-serif',
-                  padding: 0, textAlign: 'left',
-                  transition: 'all 0.3s ease',
-                }}
-                  onMouseEnter={e => { e.currentTarget.style.color = 'var(--primary)'; e.currentTarget.style.paddingLeft = '4px'; }}
-                  onMouseLeave={e => { e.currentTarget.style.color = 'rgba(255,255,255,0.65)'; e.currentTarget.style.paddingLeft = '0'; }}
-                >
-                  Get a Quote
-                </button>
-              </li>
+              {isSaalaramPortal ? (
+                <>
+                  <li><button onClick={() => goTo('/saalaram')} style={linkStyle}>Home</button></li>
+                  <li><button onClick={() => goTo('/saalaram/aboutus')} style={linkStyle}>About Us</button></li>
+                  <li><button onClick={() => goTo('/saalaram/products')} style={linkStyle}>Products</button></li>
+                  <li><button onClick={handleContactUs} style={linkStyle}>Contact Us</button></li>
+                  <li>
+                    <button
+                      onClick={() => goTo('/home')}
+                      style={{ ...linkStyle, color: '#d4a86a', fontWeight: 700 }}
+                    >
+                      ARAM Architecture →
+                    </button>
+                  </li>
+                </>
+              ) : (
+                <>
+                  <li><button onClick={() => goTo('/home')} style={linkStyle}>Home</button></li>
+                  <li><button onClick={() => goTo('/aboutus')} style={linkStyle}>About Us</button></li>
+                  <li><button onClick={() => goTo('/services')} style={linkStyle}>Services</button></li>
+                  <li><button onClick={() => goTo('/projects')} style={linkStyle}>Projects</button></li>
+                  <li><button onClick={onOpenQuoteModal} style={linkStyle}>Get a Quote</button></li>
+                  <li>
+                    <button
+                      onClick={() => goTo('/saalaram')}
+                      style={{ ...linkStyle, color: '#60a5fa', fontWeight: 700 }}
+                    >
+                      SAALARAM Solutions →
+                    </button>
+                  </li>
+                </>
+              )}
             </ul>
           </div>
 
-          {/* Col 3 — Services */}
+          {/* Col 3 — Offerings */}
           <div>
-            <h4 style={{ color: '#fff', fontSize: '1rem', fontWeight: 700, marginBottom: '22px' }}>Our Services</h4>
+            <h4 style={{ color: '#fff', fontSize: '1rem', fontWeight: 700, marginBottom: '22px' }}>
+              {isSaalaramPortal ? 'Product Solutions' : 'Our Services'}
+            </h4>
             <ul style={{ display: 'flex', flexDirection: 'column', gap: '11px', listStyle: 'none' }}>
-              {[
+              {(isSaalaramPortal ? [
+                'uPVC Acoustic Windows',
+                'Aluminium French Doors',
+                'Bi-Fold Patio Doors',
+                'Recessed LED Panels',
+                'Pendant Chandeliers',
+                'Motorized Window Blinds',
+              ] : [
                 'Architectural Design',
                 'Consultation',
                 'Blueprints & Drawings',
                 'Plan Approval',
                 'Interior Design',
                 'Project Management',
-              ].map((item) => (
+              ]).map((item) => (
                 <li key={item}>
                   <button
-                    onClick={() => goTo('/services')}
-                    style={{
-                      background: 'none', border: 'none', cursor: 'pointer',
-                      color: 'rgba(255,255,255,0.65)', fontSize: '0.9rem',
-                      fontFamily: 'Manrope, sans-serif',
-                      padding: 0, textAlign: 'left',
-                      transition: 'color 0.3s ease',
-                    }}
-                    onMouseEnter={e => { e.currentTarget.style.color = 'var(--primary)'; }}
-                    onMouseLeave={e => { e.currentTarget.style.color = 'rgba(255,255,255,0.65)'; }}
+                    onClick={() => goTo(isSaalaramPortal ? '/saalaram/products' : '/services')}
+                    style={{ ...linkStyle, fontSize: '0.9rem' }}
                   >
                     {item}
                   </button>
@@ -132,21 +155,22 @@ export default function Footer({ onOpenQuoteModal }) {
             </ul>
           </div>
 
-          {/* Col 4 — Contact */}
+          {/* Col 4 — Contact Info */}
           <div>
             <h4 style={{ color: '#fff', fontSize: '1rem', fontWeight: 700, marginBottom: '22px' }}>Get In Touch</h4>
             <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', marginBottom: '28px' }}>
               {[
-                { Icon: MapPin, text: 'Saalaram Office, Madurai, Tamil Nadu — 625001' },
+                { Icon: MapPin, text: 'Saalaram Office & Showroom, Madurai, Tamil Nadu — 625001' },
                 { Icon: Phone, text: '+91 XXXXX XXXXX' },
-                { Icon: Mail,  text: 'contact@saalaram.com' },
+                { Icon: Mail, text: isSaalaramPortal ? 'solutions@saalaram.com' : 'contact@saalaram.com' },
               ].map(({ Icon, text }, i) => (
                 <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '14px' }}>
                   <div style={{
                     width: '40px', height: '40px', flexShrink: 0,
-                    background: 'rgba(255,255,255,0.05)',
+                    background: isSaalaramPortal ? 'rgba(37,99,235,0.12)' : 'rgba(255,255,255,0.05)',
+                    border: isSaalaramPortal ? '1px solid rgba(59,130,246,0.25)' : 'none',
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
-                    color: 'var(--primary)',
+                    color: isSaalaramPortal ? '#60a5fa' : 'var(--primary)',
                   }}>
                     <Icon size={17} />
                   </div>
@@ -155,24 +179,23 @@ export default function Footer({ onOpenQuoteModal }) {
               ))}
             </div>
             <button
-              onClick={onOpenQuoteModal}
+              onClick={isSaalaramPortal ? handleContactUs : onOpenQuoteModal}
               style={{
                 display: 'flex', alignItems: 'center', gap: '8px',
                 padding: '12px 20px', width: '100%',
-                background: 'transparent', border: '1px solid var(--primary)',
+                background: isSaalaramPortal ? '#2563eb' : 'transparent',
+                border: isSaalaramPortal ? 'none' : '1px solid var(--primary)',
                 color: '#fff', fontFamily: 'Manrope, sans-serif',
                 fontWeight: 700, fontSize: '0.85rem', cursor: 'pointer',
                 justifyContent: 'center', transition: 'all 0.3s ease',
               }}
-              onMouseEnter={e => { e.currentTarget.style.background = 'var(--primary)'; e.currentTarget.style.color = '#111'; }}
-              onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.color = '#fff'; }}
             >
-              Get a Quote <ArrowRight size={15} />
+              {isSaalaramPortal ? 'Contact Saalaram Team' : 'Get a Quote'} <ArrowRight size={15} />
             </button>
           </div>
         </div>
 
-        {/* Bottom bar */}
+        {/* Bottom Bar */}
         <div style={{
           display: 'flex',
           padding: '22px 0',
@@ -180,7 +203,7 @@ export default function Footer({ onOpenQuoteModal }) {
           alignItems: 'center', justifyContent: 'space-between',
           gap: '20px', fontSize: '0.82rem', flexWrap: 'wrap',
         }}>
-          <span>© {new Date().getFullYear()} Saalaram Engineering & Architectural Products. All rights reserved.</span>
+          <span>© {new Date().getFullYear()} {isSaalaramPortal ? 'Saalaram Solutions' : 'Saalaram Engineering & Architectural Products'}. All rights reserved.</span>
           <div style={{ display: 'flex', gap: '24px' }}>
             <button onClick={() => goTo('/admin')} style={{ background: 'none', border: 'none', color: 'rgba(255,255,255,0.45)', cursor: 'pointer', fontFamily: 'Manrope, sans-serif', fontSize: '0.82rem' }}>Admin Console</button>
             <span style={{ color: 'rgba(255,255,255,0.45)', cursor: 'pointer' }}>Privacy Policy</span>
@@ -191,3 +214,10 @@ export default function Footer({ onOpenQuoteModal }) {
     </footer>
   );
 }
+
+const linkStyle = {
+  background: 'none', border: 'none', cursor: 'pointer',
+  color: 'rgba(255,255,255,0.65)', fontSize: '0.92rem',
+  fontFamily: 'Manrope, sans-serif', padding: 0, textAlign: 'left',
+  transition: 'all 0.3s ease',
+};

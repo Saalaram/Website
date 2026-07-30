@@ -5,12 +5,17 @@ import Navbar from './components/Navigation/Navbar';
 import Footer from './components/Navigation/Footer';
 import QuoteCalculator from './components/Contact/QuoteCalculator';
 
-// ── Pages ──────────────────────────────────────────────────────────────────
-import HomePage    from './pages/HomePage';
-import AboutPage   from './pages/AboutPage';
+// ── Main Aram Architecture Pages ─────────────────────────────────────────────
+import HomePage     from './pages/HomePage';
+import AboutPage    from './pages/AboutPage';
 import ServicesPage from './pages/ServicesPage';
 import ProjectsPage from './pages/ProjectsPage';
-import SaalaramPage from './pages/SaalaramPage';
+
+// ── Saalaram Solutions Sub-Domain Pages ──────────────────────────────────────
+import SaalaramHome     from './pages/saalaram/SaalaramHome';
+import SaalaramAbout    from './pages/saalaram/SaalaramAbout';
+import SaalaramProducts from './pages/saalaram/SaalaramProducts';
+
 import AdminDashboard from './components/Admin/AdminDashboard';
 
 // Hide navbar/footer on /admin
@@ -41,12 +46,18 @@ export default function App() {
         {/* Redirect bare root to /home */}
         <Route path="/" element={<Navigate to="/home" replace />} />
 
+        {/* ── Aram Architecture Routes ── */}
         <Route path="/home"      element={<HomePage    onOpenQuoteModal={handleOpenQuoteModal} />} />
         <Route path="/aboutus"   element={<AboutPage   onOpenQuoteModal={handleOpenQuoteModal} />} />
         <Route path="/about"     element={<Navigate to="/aboutus" replace />} />
         <Route path="/services"  element={<ServicesPage onOpenQuoteModal={handleOpenQuoteModal} />} />
         <Route path="/projects"  element={<ProjectsPage onOpenQuoteModal={handleOpenQuoteModal} />} />
-        <Route path="/saalaram"  element={<SaalaramPage onOpenQuoteModal={handleOpenQuoteModal} />} />
+
+        {/* ── Saalaram Solutions Sub-Domain Routes ── */}
+        <Route path="/saalaram"          element={<SaalaramHome     onOpenQuoteModal={handleOpenQuoteModal} />} />
+        <Route path="/saalaram/aboutus"  element={<SaalaramAbout    onOpenQuoteModal={handleOpenQuoteModal} />} />
+        <Route path="/saalaram/products" element={<SaalaramProducts onOpenQuoteModal={handleOpenQuoteModal} />} />
+
         <Route path="/admin"     element={<AdminDashboard />} />
 
         {/* 404 fallback */}
