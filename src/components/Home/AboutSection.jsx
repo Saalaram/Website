@@ -16,6 +16,9 @@ export default function AboutSection({ onOpenQuoteModal }) {
     'Based in Coimbatore, Serving Clients Across Tamil Nadu',
   ];
 
+  const [isProcessVisible, setIsProcessVisible] = useState(false);
+  const processRef = useRef(null);
+
   useEffect(() => {
     const observer = new IntersectionObserver(
       ([entry]) => {
@@ -26,6 +29,21 @@ export default function AboutSection({ onOpenQuoteModal }) {
 
     if (sectionRef.current) {
       observer.observe(sectionRef.current);
+    }
+
+    return () => observer.disconnect();
+  }, []);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsProcessVisible(entry.isIntersecting);
+      },
+      { threshold: 0.1 }
+    );
+
+    if (processRef.current) {
+      observer.observe(processRef.current);
     }
 
     return () => observer.disconnect();
@@ -327,42 +345,154 @@ export default function AboutSection({ onOpenQuoteModal }) {
       </section>
 
       {/* ──────────── PROCESS SECTION ──────────── */}
-      <section style={{ background: 'var(--light)', padding: '110px 0' }}>
+      <section id="how-we-work" ref={processRef} style={{ background: 'var(--light)', padding: '110px 0', overflow: 'hidden' }}>
         <div className="container">
-          <div style={{ textAlign: 'center', maxWidth: '680px', margin: '0 auto 60px auto' }}>
-            <div className="eyebrow" style={{ justifyContent: 'center' }}>How We Work</div>
+          <div
+            style={{
+              textAlign: 'center',
+              maxWidth: '920px',
+              margin: '0 auto 65px auto',
+              opacity: isProcessVisible ? 1 : 0,
+              transform: isProcessVisible ? 'translateY(0)' : 'translateY(-20px)',
+              transition: 'all 1.0s cubic-bezier(0.16, 1, 0.3, 1)',
+            }}
+          >
+            <div className="eyebrow" style={{ fontSize: '1.1rem', fontWeight: 800, marginBottom: '18px', justifyContent: 'center' }}>
+              How We Work
+            </div>
             <h2 style={{
-              fontFamily: "'Playfair Display', serif",
-              fontSize: 'clamp(2rem, 4vw, 3.5rem)',
-              color: 'var(--dark)', fontWeight: 600, lineHeight: 1.1, letterSpacing: '-0.02em',
+              fontFamily: "'Lato', sans-serif",
+              fontSize: 'clamp(2.2rem, 4vw, 3.6rem)',
+              color: 'var(--dark)', fontWeight: 700, lineHeight: 1.12, letterSpacing: '-0.02em',
             }}>
               Our engineering process, simplified
             </h2>
           </div>
 
-          <div className="process-grid">
+          {/* 3D Flip Entry Animation Cards */}
+          <div className="process-cards-grid">
             {[
               { n: '01', title: 'Site Assessment', desc: 'Free site visit, soil testing, structural feasibility, and load analysis by our senior engineers.' },
               { n: '02', title: 'Design & Approval', desc: 'CAD blueprints, 3D elevations, BOQ preparation, and municipal permit facilitation.' },
               { n: '03', title: 'Construction Execution', desc: 'Daily on-site engineer supervision, milestone billing, and Firebase real-time progress updates.' },
               { n: '04', title: 'Handover & Warranty', desc: 'Quality inspection, snag-list closure, structural warranty certificate, and product installation.' },
             ].map((step, i) => (
-              <div key={i} className="process-card">
-                <div style={{
-                  fontFamily: "'Playfair Display', serif",
-                  fontSize: '3.5rem', lineHeight: 1,
-                  color: 'var(--primary)', opacity: 0.7, fontWeight: 700,
-                }}>
-                  {step.n}
+              <div
+                key={i}
+                className="process-flip-card"
+                style={{
+                  opacity: isProcessVisible ? 1 : 0,
+                  transform: isProcessVisible ? 'perspective(1000px) rotateY(0deg) scale(1)' : 'perspective(1000px) rotateY(-90deg) scale(0.85)',
+                  transformOrigin: 'center center',
+                  transition: `all 1.1s cubic-bezier(0.175, 0.885, 0.32, 1.25) ${0.15 + i * 0.18}s`,
+                  background: '#ffffff',
+                  borderRadius: '12px',
+                  padding: '36px 28px',
+                  boxShadow: '0 12px 35px -10px rgba(0, 0, 0, 0.08)',
+                  border: '1px solid rgba(0, 0, 0, 0.07)',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'space-between',
+                }}
+              >
+                <div>
+                  <div
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      width: '56px',
+                      height: '56px',
+                      borderRadius: '10px',
+                      background: 'rgba(182, 140, 90, 0.12)',
+                      border: '1px solid rgba(182, 140, 90, 0.25)',
+                      color: 'var(--primary-dark)',
+                      fontFamily: "'Lato', sans-serif",
+                      fontSize: '1.35rem',
+                      fontWeight: 900,
+                      marginBottom: '24px',
+                    }}
+                  >
+                    {step.n}
+                  </div>
+
+                  <h3
+                    style={{
+                      fontFamily: "'Lato', sans-serif",
+                      color: 'var(--dark)',
+                      fontSize: '1.25rem',
+                      fontWeight: 700,
+                      marginBottom: '14px',
+                      lineHeight: 1.3,
+                    }}
+                  >
+                    {step.title}
+                  </h3>
+
+                  <p
+                    style={{
+                      color: 'var(--muted)',
+                      fontSize: '0.94rem',
+                      lineHeight: '1.68',
+                      margin: 0,
+                    }}
+                  >
+                    {step.desc}
+                  </p>
                 </div>
-                <h3 style={{ color: 'var(--dark)', fontSize: '1.15rem', fontWeight: 700, margin: '22px 0 13px' }}>
-                  {step.title}
-                </h3>
-                <p style={{ color: 'var(--muted)', fontSize: '0.9rem', lineHeight: '1.65' }}>
-                  {step.desc}
-                </p>
+
+                <div
+                  style={{
+                    marginTop: '28px',
+                    height: '3px',
+                    width: isProcessVisible ? '100%' : '0%',
+                    background: 'linear-gradient(90deg, var(--primary) 0%, rgba(182, 140, 90, 0.2) 100%)',
+                    borderRadius: '2px',
+                    transition: `width 0.8s ease ${0.5 + i * 0.18}s`,
+                  }}
+                />
               </div>
             ))}
+          </div>
+
+          {/* Bouncing Button below cards */}
+          <div
+            style={{
+              display: 'flex',
+              justifyContent: 'center',
+              marginTop: '55px',
+              opacity: isProcessVisible ? 1 : 0,
+              transform: isProcessVisible ? 'translateY(0)' : 'translateY(20px)',
+              transition: 'all 1.0s cubic-bezier(0.16, 1, 0.3, 1) 0.8s',
+            }}
+          >
+            <button
+              onClick={() => {
+                navigate('/services');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+              className="bouncing-services-btn"
+              style={{
+                display: 'inline-flex',
+                alignItems: 'center',
+                gap: '16px',
+                padding: '18px 42px',
+                backgroundColor: '#b68c5a',
+                color: '#171817',
+                fontFamily: "'Lato', sans-serif",
+                fontSize: '1.15rem',
+                fontWeight: 700,
+                border: 'none',
+                borderRadius: '2px',
+                cursor: 'pointer',
+                boxShadow: '0 10px 30px rgba(182, 140, 90, 0.35)',
+                letterSpacing: '0.02em',
+                transition: 'all 0.3s ease',
+              }}
+            >
+              <span>Explore all our services</span>
+              <ArrowRight size={22} style={{ strokeWidth: 2.2 }} />
+            </button>
           </div>
         </div>
       </section>
@@ -435,8 +565,30 @@ export default function AboutSection({ onOpenQuoteModal }) {
         </div>
       </section>
 
-      {/* Responsive Styles */}
+      {/* Responsive Styles & Bouncing Keyframes */}
       <style>{`
+        @keyframes gentleBounce {
+          0%, 100% {
+            transform: translateY(0);
+            box-shadow: 0 10px 30px rgba(182, 140, 90, 0.35);
+          }
+          50% {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 38px rgba(182, 140, 90, 0.5);
+          }
+        }
+
+        .bouncing-services-btn {
+          animation: gentleBounce 2s infinite ease-in-out;
+        }
+
+        .bouncing-services-btn:hover {
+          animation-play-state: paused;
+          transform: translateY(-4px) scale(1.03) !important;
+          background-color: #c99c68 !important;
+          box-shadow: 0 22px 42px rgba(182, 140, 90, 0.55) !important;
+        }
+
         .about-lower-grid {
           display: grid;
           grid-template-columns: 1fr 1fr;
@@ -444,17 +596,21 @@ export default function AboutSection({ onOpenQuoteModal }) {
           align-items: center;
         }
 
-        .process-grid {
+        .process-cards-grid {
           display: grid;
           grid-template-columns: repeat(4, 1fr);
+          gap: 24px;
+          perspective: 1200px;
         }
 
-        .process-card {
-          padding: 0 32px;
-          border-left: 1px solid var(--border);
+        .process-flip-card {
+          transition: transform 0.4s ease, box-shadow 0.4s ease, border-color 0.4s ease !important;
         }
-        .process-card:last-child {
-          border-right: 1px solid var(--border);
+
+        .process-flip-card:hover {
+          transform: perspective(1000px) rotateY(0deg) translateY(-8px) scale(1.02) !important;
+          box-shadow: 0 22px 45px -12px rgba(0, 0, 0, 0.12) !important;
+          border-color: rgba(182, 140, 90, 0.4) !important;
         }
 
         .contact-strip-grid {
@@ -479,13 +635,9 @@ export default function AboutSection({ onOpenQuoteModal }) {
             grid-template-columns: 1fr !important;
             gap: 50px !important;
           }
-          .process-grid {
-            grid-template-columns: 1fr 1fr !important;
-            gap: 30px !important;
-          }
-          .process-card {
-            border: 1px solid var(--border) !important;
-            padding: 24px !important;
+          .process-cards-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+            gap: 20px !important;
           }
           .contact-strip-grid {
             grid-template-columns: 1fr !important;
@@ -498,7 +650,7 @@ export default function AboutSection({ onOpenQuoteModal }) {
         }
 
         @media (max-width: 576px) {
-          .process-grid {
+          .process-cards-grid {
             grid-template-columns: 1fr !important;
           }
         }
