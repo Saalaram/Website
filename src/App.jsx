@@ -1,0 +1,66 @@
+import React, { useState } from 'react';
+import { Routes, Route, Navigate, useLocation } from 'react-router-dom';
+
+import Navbar from './components/Navigation/Navbar';
+import Footer from './components/Navigation/Footer';
+import QuoteCalculator from './components/Contact/QuoteCalculator';
+
+// ── Pages ──────────────────────────────────────────────────────────────────
+import HomePage    from './pages/HomePage';
+import AboutPage   from './pages/AboutPage';
+import ServicesPage from './pages/ServicesPage';
+import ProjectsPage from './pages/ProjectsPage';
+import SaalaramPage from './pages/SaalaramPage';
+import AdminDashboard from './components/Admin/AdminDashboard';
+
+// Hide navbar/footer on /admin
+function Layout({ children, onOpenQuoteModal }) {
+  const { pathname } = useLocation();
+  const isAdmin = pathname === '/admin';
+  return (
+    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+      {!isAdmin && <Navbar onOpenQuoteModal={onOpenQuoteModal} />}
+      <main style={{ flex: 1 }}>{children}</main>
+      {!isAdmin && <Footer onOpenQuoteModal={onOpenQuoteModal} />}
+    </div>
+  );
+}
+
+export default function App() {
+  const [isQuoteModalOpen, setIsQuoteModalOpen] = useState(false);
+  const [modalSubject, setModalSubject]         = useState('');
+
+  const handleOpenQuoteModal = (subject = '') => {
+    setModalSubject(subject || '');
+    setIsQuoteModalOpen(true);
+  };
+
+  return (
+    <Layout onOpenQuoteModal={handleOpenQuoteModal}>
+      <Routes>
+        {/* Redirect bare root to /home */}
+        <Route path="/" element={<Navigate to="/home" replace />} />
+
+        <Route path="/home"      element={<HomePage    onOpenQuoteModal={handleOpenQuoteModal} />} />
+        <Route path="/aboutus"   element={<AboutPage   onOpenQuoteModal={handleOpenQuoteModal} />} />
+        <Route path="/about"     element={<Navigate to="/aboutus" replace />} />
+        <Route path="/services"  element={<ServicesPage onOpenQuoteModal={handleOpenQuoteModal} />} />
+        <Route path="/projects"  element={<ProjectsPage onOpenQuoteModal={handleOpenQuoteModal} />} />
+        <Route path="/saalaram"  element={<SaalaramPage onOpenQuoteModal={handleOpenQuoteModal} />} />
+        <Route path="/admin"     element={<AdminDashboard />} />
+
+        {/* 404 fallback */}
+        <Route path="*" element={<Navigate to="/home" replace />} />
+      </Routes>
+
+      {/* Global Quote Modal */}
+      {isQuoteModalOpen && (
+        <QuoteCalculator
+          defaultSubject={modalSubject}
+          isOpenModal={true}
+          onCloseModal={() => setIsQuoteModalOpen(false)}
+        />
+      )}
+    </Layout>
+  );
+}
