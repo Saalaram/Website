@@ -44,15 +44,133 @@ export default function AboutSection({ onOpenQuoteModal }) {
         }}
       >
         <div className="container">
-          <div className="about-grid">
-            {/* Left — About Us Image Container */}
+
+          {/* ── TOP HEADER & STORY BLOCK (Centered Header + Justified Text with Staggered Scroll Animations) ── */}
+          <div
+            style={{
+              textAlign: 'center',
+              width: '100%',
+              maxWidth: '100%',
+              margin: '0 0 65px 0',
+            }}
+          >
+            {/* 1. About Us tag - Scroll Animated */}
+            <div
+              className="eyebrow"
+              style={{
+                fontSize: '1.1rem',
+                fontWeight: 800,
+                marginBottom: '18px',
+                justifyContent: 'center',
+                opacity: isVisible ? 1 : 0,
+                transform: isVisible ? 'translateY(0) scale(1)' : 'translateY(-20px) scale(0.95)',
+                transition: 'all 1.0s cubic-bezier(0.16, 1, 0.3, 1) 0.1s',
+              }}
+            >
+              About Us
+            </div>
+
+            {/* 2. Crafting Landmarks. Defining Legacies - Scroll Animated */}
+            <h2
+              style={{
+                fontFamily: "'Lato', sans-serif",
+                fontSize: 'clamp(2.2rem, 4vw, 3.6rem)',
+                color: 'var(--dark)',
+                fontWeight: 700,
+                lineHeight: 1.12,
+                letterSpacing: '-0.02em',
+                marginBottom: '32px',
+                textAlign: 'center',
+                opacity: isVisible ? 1 : 0,
+                transform: isVisible ? 'translateY(0)' : 'translateY(25px)',
+                transition: 'all 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.25s',
+              }}
+            >
+              Crafting Landmarks. Defining Legacies
+            </h2>
+
+            {/* 3. Text Paragraphs - Staggered Scroll Animated */}
+            <div
+              style={{
+                textAlign: 'justify',
+                color: 'var(--muted)',
+                fontSize: '1.03rem',
+                lineHeight: '1.8',
+              }}
+            >
+              <p
+                style={{
+                  marginBottom: '16px',
+                  opacity: isVisible ? 1 : 0,
+                  transform: isVisible ? 'translateY(0)' : 'translateY(25px)',
+                  transition: 'all 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.4s',
+                }}
+              >
+                Founded in <strong style={{ color: 'var(--dark)', fontWeight: 700 }}>2023</strong> by <strong style={{ color: 'var(--dark)', fontWeight: 700 }}>Er. Kumaravel Muthusamy, ARAM Architecture</strong> is a contemporary architecture and design studio based in Coimbatore, specializing in architecture, structural engineering, interior design, and construction. We create spaces that balance functionality, aesthetics, and lasting value.
+              </p>
+              <p
+                style={{
+                  marginBottom: '16px',
+                  opacity: isVisible ? 1 : 0,
+                  transform: isVisible ? 'translateY(0)' : 'translateY(25px)',
+                  transition: 'all 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.55s',
+                }}
+              >
+                Our multidisciplinary approach combines <strong style={{ color: 'var(--dark)', fontWeight: 700 }}>engineering precision, architectural creativity, technology, and meticulous craftsmanship</strong> to deliver projects that are thoughtfully designed and expertly executed. Every space reflects our commitment to innovation, quality, and enduring design.
+              </p>
+              <p
+                style={{
+                  marginBottom: 0,
+                  opacity: isVisible ? 1 : 0,
+                  transform: isVisible ? 'translateY(0)' : 'translateY(25px)',
+                  transition: 'all 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.7s',
+                }}
+              >
+                Together with our sister concern,{' '}
+                <button
+                  onClick={() => {
+                    navigate('/saalaram');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }}
+                  style={{
+                    background: 'none',
+                    border: 'none',
+                    padding: 0,
+                    margin: 0,
+                    font: 'inherit',
+                    color: 'var(--dark)',
+                    fontWeight: 700,
+                    cursor: 'pointer',
+                    borderBottom: '2px dotted var(--dark)',
+                    transition: 'all 0.2s ease',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.color = '#2563eb';
+                    e.currentTarget.style.borderColor = '#2563eb';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.color = 'var(--dark)';
+                    e.currentTarget.style.borderColor = 'var(--dark)';
+                  }}
+                >
+                  SAALARAM
+                </button>
+                , we provide a complete solution under one roof - offering <strong style={{ color: 'var(--dark)', fontWeight: 700 }}>premium windows, doors, blinds, glazing systems, and façade solutions</strong> alongside our design and construction services. This integrated expertise ensures a seamless journey from concept to completion, delivering spaces built to inspire and endure.
+              </p>
+            </div>
+          </div>
+
+          {/* ── LOWER DUAL BLOCK: LEFT IMAGE | RIGHT WHY CHOOSE US ── */}
+          <div className="about-lower-grid">
+
+            {/* Left side — Image */}
             <div
               style={{
                 position: 'relative',
                 width: '100%',
                 opacity: isVisible ? 1 : 0,
-                transform: isVisible ? 'translateX(0)' : 'translateX(-50px)',
-                transition: 'all 1.4s cubic-bezier(0.16, 1, 0.3, 1)',
+                transform: isVisible ? 'translateX(0)' : 'translateX(-45px)',
+                transition: 'all 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.2s',
               }}
             >
               <div
@@ -68,7 +186,7 @@ export default function AboutSection({ onOpenQuoteModal }) {
                   alt="About Saalaram Engineering"
                   style={{
                     width: '100%',
-                    maxHeight: '560px',
+                    maxHeight: '540px',
                     height: 'auto',
                     objectFit: 'cover',
                     display: 'block',
@@ -121,95 +239,22 @@ export default function AboutSection({ onOpenQuoteModal }) {
               </div>
             </div>
 
-            {/* Right — Text content */}
+            {/* Right side — Why Choose Us Content */}
             <div
               style={{
                 opacity: isVisible ? 1 : 0,
-                transform: isVisible ? 'translateX(0)' : 'translateX(50px)',
-                transition: 'all 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.25s',
+                transform: isVisible ? 'translateX(0)' : 'translateX(45px)',
+                transition: 'all 1.4s cubic-bezier(0.16, 1, 0.3, 1) 0.3s',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'center',
               }}
             >
-              <div className="eyebrow" style={{ fontSize: '1.1rem', fontWeight: 800, marginBottom: '18px' }}>
-                About Us
-              </div>
-              <h2
-                style={{
-                  fontFamily: "'Lato', sans-serif",
-                  fontSize: 'clamp(2rem, 3.8vw, 3.5rem)',
-                  color: 'var(--dark)',
-                  fontWeight: 700,
-                  lineHeight: 1.12,
-                  letterSpacing: '-0.02em',
-                  marginBottom: '22px',
-                }}
-              >
-                Crafting Landmarks. Defining Legacies
-              </h2>
-              <p
-                style={{
-                  color: 'var(--muted)',
-                  fontSize: '1.02rem',
-                  lineHeight: '1.75',
-                  marginBottom: '16px',
-                }}
-              >
-                Founded in <strong style={{ color: 'var(--dark)', fontWeight: 700 }}>2023</strong> by <strong style={{ color: 'var(--dark)', fontWeight: 700 }}>Er. Kumaravel Muthusamy, ARAM Architecture</strong> is a contemporary architecture and design studio based in Coimbatore, specializing in architecture, structural engineering, interior design, and construction. We create spaces that balance functionality, aesthetics, and lasting value.
-              </p>
-              <p
-                style={{
-                  color: 'var(--muted)',
-                  fontSize: '1.02rem',
-                  lineHeight: '1.75',
-                  marginBottom: '16px',
-                }}
-              >
-                Our multidisciplinary approach combines <strong style={{ color: 'var(--dark)', fontWeight: 700 }}>engineering precision, architectural creativity, technology, and meticulous craftsmanship</strong> to deliver projects that are thoughtfully designed and expertly executed. Every space reflects our commitment to innovation, quality, and enduring design.
-              </p>
-              <p
-                style={{
-                  color: 'var(--muted)',
-                  fontSize: '1.02rem',
-                  lineHeight: '1.75',
-                  marginBottom: '32px',
-                }}
-              >
-                Together with our sister concern,{' '}
-                <button
-                  onClick={() => {
-                    navigate('/saalaram');
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                  }}
-                  style={{
-                    background: 'none',
-                    border: 'none',
-                    padding: 0,
-                    margin: 0,
-                    font: 'inherit',
-                    color: 'var(--dark)',
-                    fontWeight: 700,
-                    cursor: 'pointer',
-                    borderBottom: '2px dotted var(--dark)',
-                    transition: 'all 0.2s ease',
-                  }}
-                  onMouseEnter={(e) => {
-                    e.currentTarget.style.color = '#2563eb';
-                    e.currentTarget.style.borderColor = '#2563eb';
-                  }}
-                  onMouseLeave={(e) => {
-                    e.currentTarget.style.color = 'var(--dark)';
-                    e.currentTarget.style.borderColor = 'var(--dark)';
-                  }}
-                >
-                  SAALARAM
-                </button>
-                , we provide a complete solution under one roof - offering <strong style={{ color: 'var(--dark)', fontWeight: 700 }}>premium windows, doors, blinds, glazing systems, and façade solutions</strong> alongside our design and construction services. This integrated expertise ensures a seamless journey from concept to completion, delivering spaces built to inspire and endure.
-              </p>
-
-              <div style={{ marginTop: '28px', marginBottom: '18px' }}>
+              <div style={{ marginBottom: '22px' }}>
                 <h3
                   style={{
                     fontFamily: "'Lato', sans-serif",
-                    fontSize: '1.25rem',
+                    fontSize: '1.75rem',
                     fontWeight: 700,
                     color: 'var(--dark)',
                     letterSpacing: '-0.01em',
@@ -224,7 +269,7 @@ export default function AboutSection({ onOpenQuoteModal }) {
                   listStyle: 'none',
                   display: 'flex',
                   flexDirection: 'column',
-                  gap: '14px',
+                  gap: '16px',
                   marginBottom: '38px',
                   padding: 0,
                 }}
@@ -235,10 +280,10 @@ export default function AboutSection({ onOpenQuoteModal }) {
                     style={{
                       display: 'flex',
                       alignItems: 'flex-start',
-                      gap: '12px',
+                      gap: '14px',
                       color: 'var(--dark)',
                       fontWeight: 600,
-                      fontSize: '0.95rem',
+                      fontSize: '0.98rem',
                       opacity: isVisible ? 1 : 0,
                       transform: isVisible ? 'translateY(0)' : 'translateY(16px)',
                       transition: `all 0.8s cubic-bezier(0.16, 1, 0.3, 1) ${0.45 + i * 0.12}s`,
@@ -246,22 +291,22 @@ export default function AboutSection({ onOpenQuoteModal }) {
                   >
                     <span
                       style={{
-                        width: '22px',
-                        height: '22px',
+                        width: '24px',
+                        height: '24px',
                         flexShrink: 0,
                         background: 'var(--light)',
                         color: 'var(--primary-dark)',
                         display: 'flex',
                         alignItems: 'center',
                         justifyContent: 'center',
-                        fontSize: '0.75rem',
+                        fontSize: '0.8rem',
                         fontWeight: 800,
-                        borderRadius: '3px',
+                        borderRadius: '4px',
                       }}
                     >
                       ✓
                     </span>
-                    {item}
+                    <span style={{ lineHeight: '1.5', paddingTop: '1px' }}>{item}</span>
                   </li>
                 ))}
               </ul>
@@ -275,7 +320,9 @@ export default function AboutSection({ onOpenQuoteModal }) {
                 </button>
               </div>
             </div>
+
           </div>
+
         </div>
       </section>
 
@@ -390,9 +437,9 @@ export default function AboutSection({ onOpenQuoteModal }) {
 
       {/* Responsive Styles */}
       <style>{`
-        .about-grid {
+        .about-lower-grid {
           display: grid;
-          grid-template-columns: 1.05fr 0.95fr;
+          grid-template-columns: 1fr 1fr;
           gap: 75px;
           align-items: center;
         }
@@ -428,7 +475,7 @@ export default function AboutSection({ onOpenQuoteModal }) {
         }
 
         @media (max-width: 992px) {
-          .about-grid {
+          .about-lower-grid {
             grid-template-columns: 1fr !important;
             gap: 50px !important;
           }
