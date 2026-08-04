@@ -33,9 +33,9 @@ export default function SaalaramContactForm({ defaultSubject = '' }) {
   };
 
   return (
-    <section id="contact-us" style={{ background: '#09101f', color: '#fff', padding: '100px 0', borderTop: '1px solid rgba(255,255,255,0.08)' }}>
+    <section id="contact-us" style={{ background: '#09101f', color: '#fff', padding: 'clamp(60px, 8vw, 100px) 0', borderTop: '1px solid rgba(255,255,255,0.08)' }}>
       <div className="container">
-        <div style={{
+        <div className="saalaram-contact-grid" style={{
           display: 'grid',
           gridTemplateColumns: '1fr 1.1fr',
           gap: '70px',

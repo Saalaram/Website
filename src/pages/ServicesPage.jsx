@@ -146,7 +146,7 @@ export default function ServicesPage({ onOpenQuoteModal }) {
       {/* ── SERVICE CARDS GRID ── */}
       <section style={{ background: 'var(--light)', padding: '110px 0' }}>
         <div className="container">
-          <div style={{
+          <div className="services-cards-grid" style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(3, 1fr)',
             gap: '2px',

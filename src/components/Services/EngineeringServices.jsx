@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import { ArrowRight, CheckCircle } from 'lucide-react';
 
 const SERVICES = [
@@ -41,8 +42,15 @@ const SERVICES = [
 ];
 
 export default function EngineeringServices({ onOpenQuoteModal }) {
+  const navigate = useNavigate();
+
   return (
-    <section id="engineering" style={{ background: 'var(--light)', padding: '110px 0' }}>
+    <section id="engineering" style={{
+      position: 'relative',
+      background: `linear-gradient(rgba(12, 12, 12, 0.88), rgba(12, 12, 12, 0.88)), url("/assets/images/Civil.png") center/cover fixed`,
+      color: '#fff',
+      padding: 'clamp(60px, 8vw, 110px) 0',
+    }}>
       <div className="container">
 
         {/* Section header */}
@@ -53,109 +61,98 @@ export default function EngineeringServices({ onOpenQuoteModal }) {
           flexWrap: 'wrap',
         }}>
           <div>
-            <div className="eyebrow">Civil Engineering</div>
+            <div className="eyebrow" style={{ fontSize: '1.1rem', fontWeight: 800, marginBottom: '18px', color: 'var(--primary)' }}>
+              Civil Engineering
+            </div>
             <h2 style={{
-              fontFamily: "'Playfair Display', serif",
-              fontSize: 'clamp(2.2rem, 5vw, 4rem)',
-              color: 'var(--dark)', fontWeight: 600,
-              lineHeight: 1.1, letterSpacing: '-0.02em',
-              maxWidth: '560px',
+              fontFamily: "'Lato', sans-serif",
+              fontSize: 'clamp(2.2rem, 4vw, 3.6rem)',
+              color: '#fff', fontWeight: 700,
+              lineHeight: 1.12, letterSpacing: '-0.02em',
+              maxWidth: '620px',
             }}>
               Complete structural solutions, built to last
             </h2>
           </div>
-          <p style={{ color: 'var(--muted)', maxWidth: '400px', fontSize: '1rem', lineHeight: '1.7' }}>
+          <p style={{ color: 'rgba(255, 255, 255, 0.75)', maxWidth: '440px', fontSize: '1.03rem', lineHeight: '1.7' }}>
             From first soil test to roof parapet — we manage every phase of your construction with licensed civil engineers on site, every day.
           </p>
         </div>
 
-        {/* Service cards — dark image cards */}
+        {/* Service cards — solid dark cards */}
         <div style={{
           display: 'grid',
           gridTemplateColumns: 'repeat(auto-fit, minmax(270px, 1fr))',
           gap: '22px',
-          marginBottom: '60px',
+          marginBottom: '50px',
         }}>
           {SERVICES.map((svc) => (
             <div
               key={svc.number}
               style={{
-                position: 'relative',
-                minHeight: '440px',
-                overflow: 'hidden',
-                background: 'var(--dark)',
+                background: '#1c1e1c',
+                borderRadius: '8px',
+                border: '1px solid rgba(255, 255, 255, 0.08)',
+                padding: '36px 32px',
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'space-between',
                 cursor: 'pointer',
+                transition: 'transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease',
               }}
               onMouseEnter={e => {
-                const img = e.currentTarget.querySelector('.svc-img');
-                if (img) { img.style.opacity = '0.75'; img.style.transform = 'scale(1.07)'; }
+                e.currentTarget.style.transform = 'translateY(-6px)';
+                e.currentTarget.style.borderColor = 'var(--primary)';
+                e.currentTarget.style.boxShadow = '0 16px 36px rgba(0,0,0,0.4)';
               }}
               onMouseLeave={e => {
-                const img = e.currentTarget.querySelector('.svc-img');
-                if (img) { img.style.opacity = '0.55'; img.style.transform = 'scale(1)'; }
+                e.currentTarget.style.transform = 'translateY(0)';
+                e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.08)';
+                e.currentTarget.style.boxShadow = 'none';
               }}
             >
-              {/* Background photo */}
-              <img
-                className="svc-img"
-                src={svc.image}
-                alt={svc.title}
-                style={{
-                  position: 'absolute', inset: 0,
-                  width: '100%', height: '100%',
-                  objectFit: 'cover',
-                  opacity: 0.55,
-                  transition: 'transform 0.7s ease, opacity 0.4s ease',
-                }}
-              />
-              {/* Gradient overlay */}
-              <div style={{
-                position: 'absolute', inset: 0,
-                background: 'linear-gradient(180deg, rgba(10,10,10,0.05) 10%, rgba(10,10,10,0.92) 100%)',
-              }} />
-
-              {/* Text content */}
-              <div style={{
-                position: 'absolute', bottom: 0, left: 0, right: 0,
-                padding: '36px 32px', zIndex: 2,
-              }}>
+              <div>
                 <span style={{
                   color: 'var(--primary)',
-                  fontSize: '0.76rem', fontWeight: 700,
+                  fontFamily: "'Lato', sans-serif",
+                  fontSize: '0.78rem', fontWeight: 800,
                   letterSpacing: '0.16em', textTransform: 'uppercase',
-                  display: 'block', marginBottom: '12px',
+                  display: 'block', marginBottom: '14px',
                 }}>
                   {svc.number} / {svc.category}
                 </span>
 
                 <h3 style={{
-                  fontFamily: "'Playfair Display', serif",
-                  fontSize: '1.75rem', color: '#fff',
-                  fontWeight: 600, lineHeight: 1.2,
-                  marginBottom: '12px',
+                  fontFamily: "'Lato', sans-serif",
+                  fontSize: '1.4rem', color: '#fff',
+                  fontWeight: 700, lineHeight: 1.25,
+                  marginBottom: '14px',
                 }}>
                   {svc.title}
                 </h3>
 
-                <p style={{ color: 'rgba(255,255,255,0.65)', fontSize: '0.88rem', lineHeight: '1.65', marginBottom: '16px' }}>
+                <p style={{ color: 'rgba(255,255,255,0.72)', fontSize: '0.92rem', lineHeight: '1.68', marginBottom: '20px' }}>
                   {svc.description}
                 </p>
 
-                <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '6px', marginBottom: '20px' }}>
+                <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '24px' }}>
                   {svc.features.map((f, i) => (
-                    <li key={i} style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'rgba(255,255,255,0.8)', fontSize: '0.82rem' }}>
-                      <CheckCircle size={13} color="var(--primary)" style={{ flexShrink: 0 }} />
+                    <li key={i} style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'rgba(255,255,255,0.85)', fontSize: '0.84rem' }}>
+                      <CheckCircle size={14} color="var(--primary)" style={{ flexShrink: 0 }} />
                       {f}
                     </li>
                   ))}
                 </ul>
+              </div>
 
+              <div>
                 <button
                   onClick={() => onOpenQuoteModal(svc.title)}
                   style={{
                     display: 'inline-flex', alignItems: 'center', gap: '8px',
                     color: 'var(--primary)',
-                    fontSize: '0.78rem', fontWeight: 700,
+                    fontFamily: "'Lato', sans-serif",
+                    fontSize: '0.82rem', fontWeight: 700,
                     letterSpacing: '0.1em', textTransform: 'uppercase',
                     background: 'none', border: 'none', cursor: 'pointer', padding: 0,
                   }}
@@ -167,30 +164,65 @@ export default function EngineeringServices({ onOpenQuoteModal }) {
           ))}
         </div>
 
+        {/* Explore all services button */}
+        <div style={{ display: 'flex', justifyContent: 'center', marginBottom: '55px' }}>
+          <button
+            onClick={() => {
+              navigate('/services');
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
+            className="bouncing-services-btn"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '16px',
+              padding: '18px 42px',
+              backgroundColor: '#b68c5a',
+              color: '#171817',
+              fontFamily: "'Lato', sans-serif",
+              fontSize: '1.15rem',
+              fontWeight: 700,
+              border: 'none',
+              borderRadius: '2px',
+              cursor: 'pointer',
+              boxShadow: '0 10px 30px rgba(182, 140, 90, 0.35)',
+              letterSpacing: '0.02em',
+              transition: 'all 0.3s ease',
+            }}
+          >
+            <span>Explore all services</span>
+            <ArrowRight size={22} style={{ strokeWidth: 2.2 }} />
+          </button>
+        </div>
+
         {/* CTA Banner */}
         <div style={{
-          background: 'var(--dark)',
+          position: 'relative',
+          overflow: 'hidden',
+          background: `linear-gradient(rgba(12, 12, 12, 0.85), rgba(12, 12, 12, 0.85)), url("/assets/images/Civil.png") center/cover`,
           padding: '50px 55px',
+          borderRadius: '8px',
+          border: '1px solid rgba(255, 255, 255, 0.12)',
           display: 'flex', alignItems: 'center',
           justifyContent: 'space-between', flexWrap: 'wrap', gap: '28px',
         }}>
           <div>
-            <p style={{ color: 'var(--primary)', fontWeight: 700, fontSize: '0.78rem', letterSpacing: '0.18em', textTransform: 'uppercase', marginBottom: '8px' }}>
+            <p style={{ color: 'var(--primary)', fontFamily: "'Lato', sans-serif", fontWeight: 800, fontSize: '0.78rem', letterSpacing: '0.18em', textTransform: 'uppercase', marginBottom: '8px' }}>
               — Free Initial Assessment
             </p>
             <h3 style={{
-              fontFamily: "'Playfair Display', serif",
-              fontSize: 'clamp(1.6rem, 3vw, 2.4rem)',
-              color: '#fff', fontWeight: 600, lineHeight: 1.15,
+              fontFamily: "'Lato', sans-serif",
+              fontSize: 'clamp(1.8rem, 3.5vw, 2.5rem)',
+              color: '#fff', fontWeight: 700, lineHeight: 1.15,
               marginBottom: '10px',
             }}>
               Planning a new house or building?
             </h3>
-            <p style={{ color: 'rgba(255,255,255,0.55)', maxWidth: '560px', fontSize: '0.95rem' }}>
+            <p style={{ color: 'rgba(255,255,255,0.72)', maxWidth: '560px', fontSize: '1rem', lineHeight: '1.65' }}>
               Consult our licensed structural engineers. Bring your architectural sketch for a free structural evaluation.
             </p>
           </div>
-          <button onClick={() => onOpenQuoteModal('Civil Engineering Consultation')} className="btn btn-primary">
+          <button onClick={() => onOpenQuoteModal('Civil Engineering Consultation')} className="btn btn-primary" style={{ fontFamily: "'Lato', sans-serif", fontWeight: 700 }}>
             Book Engineer Inspection <ArrowRight size={17} />
           </button>
         </div>

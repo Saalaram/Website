@@ -253,7 +253,7 @@ export default function SaalaramPage({ onOpenQuoteModal }) {
           background: 'linear-gradient(90deg, transparent, var(--primary), transparent)',
         }} />
         <div className="container">
-          <div style={{
+          <div className="saalaram-hero-grid" style={{
             display: 'grid',
             gridTemplateColumns: '1fr 1fr',
             gap: '80px',
@@ -336,7 +336,7 @@ export default function SaalaramPage({ onOpenQuoteModal }) {
       {/* ── USP STRIP ── */}
       <section style={{ background: 'var(--primary)', padding: '0' }}>
         <div className="container">
-          <div style={{
+          <div className="saalaram-usp-strip" style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(4, 1fr)',
           }}>
@@ -365,7 +365,7 @@ export default function SaalaramPage({ onOpenQuoteModal }) {
             <div className="eyebrow">Product Catalogue</div>
             <h2 style={{
               fontFamily: "'Playfair Display', serif",
-              fontSize: 'clamp(2rem, 4vw, 3.2rem)',
+              fontSize: 'clamp(1.8rem, 4vw, 3.2rem)',
               color: 'var(--dark)', fontWeight: 600, lineHeight: 1.1,
             }}>
               Browse by Category
@@ -373,7 +373,7 @@ export default function SaalaramPage({ onOpenQuoteModal }) {
           </div>
 
           {/* Category Tabs */}
-          <div style={{ display: 'flex', gap: '0', marginBottom: '50px', border: '1px solid var(--border)', width: 'fit-content' }}>
+          <div className="saalaram-category-tabs" style={{ display: 'flex', gap: '0', marginBottom: '50px', border: '1px solid var(--border)', width: 'fit-content', flexWrap: 'wrap' }}>
             {categoryConfig.map(({ id, label, icon: Icon }, i) => (
               <button
                 key={id}
@@ -474,6 +474,55 @@ export default function SaalaramPage({ onOpenQuoteModal }) {
           </div>
         </div>
       )}
+
+      <style>{`
+        /* Saalaram Page Mobile Responsive Styles */
+        @media (max-width: 900px) {
+          .saalaram-hero-grid {
+            grid-template-columns: 1fr !important;
+            gap: 40px !important;
+          }
+          .saalaram-usp-strip {
+            grid-template-columns: repeat(2, 1fr) !important;
+          }
+          .saalaram-usp-strip > div:nth-child(odd) {
+            border-left: none !important;
+          }
+          .saalaram-category-tabs {
+            width: 100% !important;
+          }
+          .saalaram-category-tabs button {
+            flex: 1;
+            min-width: 0;
+            padding: 12px 20px !important;
+            justify-content: center;
+          }
+        }
+        @media (max-width: 600px) {
+          .saalaram-hero-grid > div:last-child {
+            display: none;
+          }
+          .saalaram-usp-strip {
+            grid-template-columns: 1fr 1fr !important;
+          }
+          .saalaram-category-tabs {
+            width: 100% !important;
+          }
+          .saalaram-category-tabs button {
+            padding: 10px 14px !important;
+            font-size: 0.82rem !important;
+          }
+        }
+        @media (max-width: 400px) {
+          .saalaram-usp-strip {
+            grid-template-columns: 1fr !important;
+          }
+          .saalaram-usp-strip > div {
+            border-left: none !important;
+            border-bottom: 1px solid rgba(23,24,23,0.1);
+          }
+        }
+      `}</style>
     </div>
   );
 }

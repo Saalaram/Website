@@ -5,7 +5,7 @@ import {
 } from 'lucide-react';
 
 const stats = [
-  { value: '15+', label: 'Years of Excellence' },
+  { value: '8+', label: 'Years of Excellence' },
   { value: '300+', label: 'Projects Delivered' },
   { value: '50+', label: 'Expert Engineers' },
   { value: '12', label: 'Districts Served' },
@@ -55,7 +55,7 @@ export default function AboutPage({ onOpenQuoteModal }) {
       {/* ── STATS BAR ── */}
       <section style={{ background: 'var(--primary)', padding: '0' }}>
         <div className="container">
-          <div style={{
+          <div className="about-stats-bar" style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(4, 1fr)',
           }}>
@@ -82,7 +82,7 @@ export default function AboutPage({ onOpenQuoteModal }) {
       {/* ── MD PROFILE ── */}
       <section style={{ background: '#fff', padding: '110px 0' }}>
         <div className="container">
-          <div style={{
+          <div className="about-md-grid" style={{
             display: 'grid',
             gridTemplateColumns: '400px 1fr',
             gap: '80px',
@@ -120,7 +120,7 @@ export default function AboutPage({ onOpenQuoteModal }) {
                   fontFamily: "'Playfair Display', serif",
                   fontSize: '2.4rem', fontWeight: 700,
                   color: 'var(--primary)', lineHeight: 1,
-                }}>15+</div>
+                }}>8+</div>
                 <div style={{ fontSize: '0.8rem', fontWeight: 600, marginTop: '6px', color: 'rgba(255,255,255,0.75)' }}>
                   Years of<br />Engineering<br />Excellence
                 </div>
@@ -145,7 +145,7 @@ export default function AboutPage({ onOpenQuoteModal }) {
                 Managing Director & Chief Engineer
               </p>
               <p style={{ color: 'var(--muted)', fontSize: '1rem', lineHeight: '1.78', marginBottom: '16px' }}>
-                With over 15 years of hands-on experience in civil engineering and construction management, [MD Name] has led Saalaram to become one of Tamil Nadu's most trusted engineering and architectural product firms.
+                With over 8 years of hands-on experience in civil engineering and construction management, [MD Name] has led Saalaram to become one of Tamil Nadu's most trusted engineering and architectural product firms.
               </p>
               <p style={{ color: 'var(--muted)', fontSize: '1rem', lineHeight: '1.78', marginBottom: '32px' }}>
                 A licensed Civil Engineer with a B.E. in Civil Engineering from [University Placeholder], he has overseen the successful delivery of 300+ residential, commercial, and infrastructure projects across 12 districts of Tamil Nadu.
@@ -191,7 +191,7 @@ export default function AboutPage({ onOpenQuoteModal }) {
       {/* ── COMPANY STORY ── */}
       <section style={{ background: 'var(--light)', padding: '110px 0' }}>
         <div className="container">
-          <div style={{
+          <div className="about-story-grid" style={{
             display: 'grid',
             gridTemplateColumns: '1fr 1fr',
             gap: '80px',
@@ -306,7 +306,7 @@ export default function AboutPage({ onOpenQuoteModal }) {
               From the first blueprint to the final finishing touch, Saalaram provides complete engineering and architectural services.
             </p>
           </div>
-          <div style={{
+          <div className="about-services-grid" style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(3, 1fr)',
             gap: '1px',
@@ -344,7 +344,7 @@ export default function AboutPage({ onOpenQuoteModal }) {
               Contact Details
             </h2>
           </div>
-          <div style={{
+          <div className="about-contact-grid" style={{
             display: 'grid',
             gridTemplateColumns: 'repeat(3, 1fr)',
             gap: '28px',
@@ -407,3 +407,9 @@ export default function AboutPage({ onOpenQuoteModal }) {
     </div>
   );
 }
+
+/*
+  AboutPage responsive styles are handled in index.css via:
+  .about-stats-bar, .about-md-grid, .about-story-grid,
+  .about-services-grid, .about-contact-grid
+*/

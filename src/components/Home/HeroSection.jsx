@@ -41,7 +41,7 @@ const SLIDES = [
 
 const STATS = [
   { value: '150+', label: 'Projects Completed' },
-  { value: '15 Yrs', label: 'Engineering Experience' },
+  { value: '8 Yrs', label: 'Engineering Experience' },
   { value: '10,000+', label: 'Windows & Blinds Installed' },
 ];
 
@@ -74,7 +74,7 @@ export default function HeroSection({ onOpenQuoteModal }) {
   const slide = SLIDES[current];
 
   return (
-    <section style={{ position: 'relative', height: 'calc(100vh - 88px)', minHeight: '650px', marginTop: '88px', overflow: 'hidden' }}>
+    <section style={{ position: 'relative', height: 'calc(100vh - 88px)', minHeight: '600px', marginTop: '88px', overflow: 'hidden' }}>
 
       {/* Background image with cross-fade */}
       {SLIDES.map((s, i) => (
@@ -110,10 +110,10 @@ export default function HeroSection({ onOpenQuoteModal }) {
         alignItems: 'center',
         justifyContent: 'space-between',
         paddingTop: '40px',
-        paddingBottom: '120px',
+        paddingBottom: '140px',
         gap: '40px',
       }}>
-        <div style={{ maxWidth: '640px', flexShrink: 0 }}>
+        <div className="hero-text-block">
 
           {/* Kicker */}
           <div style={{
@@ -187,9 +187,9 @@ export default function HeroSection({ onOpenQuoteModal }) {
       </div>
 
       {/* Slide navigation arrows */}
-      <button onClick={prev} style={{
-        position: 'absolute', left: '32px', top: '50%', transform: 'translateY(-50%)',
-        zIndex: 4, width: '52px', height: '52px',
+      <button onClick={prev} className="hero-arrow hero-arrow-prev" style={{
+        position: 'absolute', left: '16px', top: '50%', transform: 'translateY(-50%)',
+        zIndex: 4, width: '46px', height: '46px',
         background: 'rgba(255,255,255,0.08)',
         border: '1px solid rgba(255,255,255,0.2)',
         color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -199,12 +199,12 @@ export default function HeroSection({ onOpenQuoteModal }) {
         onMouseEnter={e => { e.currentTarget.style.background = 'var(--primary)'; e.currentTarget.style.borderColor = 'var(--primary)'; }}
         onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.08)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)'; }}
       >
-        <ArrowLeft size={22} />
+        <ArrowLeft size={20} />
       </button>
 
-      <button onClick={next} style={{
-        position: 'absolute', right: '32px', top: '50%', transform: 'translateY(-50%)',
-        zIndex: 4, width: '52px', height: '52px',
+      <button onClick={next} className="hero-arrow hero-arrow-next" style={{
+        position: 'absolute', right: '16px', top: '50%', transform: 'translateY(-50%)',
+        zIndex: 4, width: '46px', height: '46px',
         background: 'rgba(255,255,255,0.08)',
         border: '1px solid rgba(255,255,255,0.2)',
         color: '#fff', display: 'flex', alignItems: 'center', justifyContent: 'center',
@@ -214,12 +214,12 @@ export default function HeroSection({ onOpenQuoteModal }) {
         onMouseEnter={e => { e.currentTarget.style.background = 'var(--primary)'; e.currentTarget.style.borderColor = 'var(--primary)'; }}
         onMouseLeave={e => { e.currentTarget.style.background = 'rgba(255,255,255,0.08)'; e.currentTarget.style.borderColor = 'rgba(255,255,255,0.2)'; }}
       >
-        <ArrowRight size={22} />
+        <ArrowRight size={20} />
       </button>
 
       {/* Slide dots + counter */}
       <div style={{
-        position: 'absolute', left: '50%', bottom: '140px',
+        position: 'absolute', left: '50%', bottom: '100px',
         transform: 'translateX(-50%)',
         zIndex: 4, display: 'flex', alignItems: 'center', gap: '10px',
       }}>
@@ -235,7 +235,7 @@ export default function HeroSection({ onOpenQuoteModal }) {
       </div>
 
       {/* Bottom stats bar — dark glassmorphic panel */}
-      <div style={{
+      <div className="hero-stats-bar" style={{
         position: 'absolute', bottom: 0, right: 0,
         zIndex: 4,
         display: 'grid',
@@ -291,8 +291,29 @@ export default function HeroSection({ onOpenQuoteModal }) {
         @media (min-width: 1100px) {
           .hero-side-panel { display: flex !important; }
         }
-        @media (max-width: 800px) {
-          section { height: auto !important; min-height: 100vh !important; }
+        /* Mobile hero adjustments */
+        @media (max-width: 768px) {
+          .hero-text-block {
+            max-width: 100% !important;
+          }
+          .hero-stats-bar {
+            width: 100% !important;
+            left: 0 !important;
+            right: 0 !important;
+          }
+          .hero-stats-bar > div {
+            padding: 18px 14px !important;
+          }
+          .hero-stats-bar strong {
+            font-size: 1.6rem !important;
+          }
+          .hero-arrow-prev { left: 8px !important; width: 38px !important; height: 38px !important; }
+          .hero-arrow-next { right: 8px !important; width: 38px !important; height: 38px !important; }
+        }
+        @media (max-width: 480px) {
+          .hero-stats-bar {
+            display: none !important;
+          }
         }
       `}</style>
     </section>

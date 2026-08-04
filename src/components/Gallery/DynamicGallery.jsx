@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { 
   Sparkles, 
   MapPin, 
@@ -8,11 +9,13 @@ import {
   Layers, 
   ChevronLeft, 
   ChevronRight, 
+  ArrowRight,
   X 
 } from 'lucide-react';
 import { getProjects } from '../../firebase/api';
 
 export default function DynamicGallery() {
+  const navigate = useNavigate();
   const [projects, setProjects] = useState([]);
   const [loading, setLoading] = useState(true);
   const [activeCategory, setActiveCategory] = useState('All');
@@ -34,20 +37,36 @@ export default function DynamicGallery() {
     <section id="gallery" className="section-padding" style={{ background: 'var(--bg-primary)' }}>
       <div className="container">
         {/* Header */}
-        <div className="section-header">
-          <div className="section-tag">
-            <Sparkles size={14} /> Firebase Dynamic Portfolio
+        <div style={{ textAlign: 'center', margin: '0 0 50px 0' }}>
+          <div className="eyebrow" style={{ fontSize: '1.1rem', fontWeight: 800, marginBottom: '18px', justifyContent: 'center' }}>
+            <Sparkles size={16} /> Portfolio
           </div>
-          <h2 className="section-title heading-serif">
-            Project <span className="text-gradient-gold">Showcase & Portfolio</span>
+          <h2 style={{
+            fontFamily: "'Lato', sans-serif",
+            fontSize: 'clamp(2.2rem, 4vw, 3.6rem)',
+            color: 'var(--dark)',
+            fontWeight: 700,
+            lineHeight: 1.12,
+            letterSpacing: '-0.02em',
+            marginBottom: '22px',
+            textAlign: 'center',
+          }}>
+            Project <span style={{ color: 'var(--primary)' }}>Showcase & Portfolio</span>
           </h2>
-          <p className="section-subtitle">
+          <p style={{
+            textAlign: 'center',
+            color: 'var(--muted)',
+            fontSize: '1.03rem',
+            lineHeight: '1.7',
+            maxWidth: '650px',
+            margin: '0 auto',
+          }}>
             Explore structural civil engineering achievements and architectural window/door installation projects delivered with perfection.
           </p>
         </div>
 
         {/* Filter Tabs */}
-        <div className="filter-tabs">
+        <div className="filter-tabs" style={{ justifyContent: 'center', marginBottom: '45px' }}>
           {categories.map((cat) => (
             <button
               key={cat}
@@ -125,16 +144,16 @@ export default function DynamicGallery() {
 
                   {/* Title & Metadata overlay */}
                   <div style={{ position: 'absolute', bottom: '20px', left: '20px', right: '20px' }}>
-                    <h3 className="heading-serif" style={{ fontSize: '1.25rem', color: '#FFF', marginBottom: '0.4rem' }}>
+                    <h3 style={{ fontFamily: "'Lato', sans-serif", fontWeight: 700, fontSize: '1.25rem', color: '#FFF', marginBottom: '0.4rem' }}>
                       {proj.title}
                     </h3>
                     <div style={{ display: 'flex', alignItems: 'center', gap: '1rem', color: 'var(--text-muted)', fontSize: '0.85rem' }}>
                       <span style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
-                        <MapPin size={13} color="var(--accent-gold)" /> {proj.location}
+                        <MapPin size={13} color="var(--primary)" /> {proj.location}
                       </span>
                       {proj.squareFeet && (
                         <span style={{ display: 'flex', alignItems: 'center', gap: '0.3rem' }}>
-                          <Maximize size={13} color="var(--accent-gold)" /> {proj.squareFeet}
+                          <Maximize size={13} color="var(--primary)" /> {proj.squareFeet}
                         </span>
                       )}
                     </div>
@@ -144,6 +163,37 @@ export default function DynamicGallery() {
             ))}
           </div>
         )}
+
+        {/* Explore all projects button */}
+        <div style={{ display: 'flex', justifyContent: 'center', marginTop: '50px' }}>
+          <button
+            onClick={() => {
+              navigate('/projects');
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
+            className="bouncing-services-btn"
+            style={{
+              display: 'inline-flex',
+              alignItems: 'center',
+              gap: '16px',
+              padding: '18px 42px',
+              backgroundColor: '#b68c5a',
+              color: '#171817',
+              fontFamily: "'Lato', sans-serif",
+              fontSize: '1.15rem',
+              fontWeight: 700,
+              border: 'none',
+              borderRadius: '2px',
+              cursor: 'pointer',
+              boxShadow: '0 10px 30px rgba(182, 140, 90, 0.35)',
+              letterSpacing: '0.02em',
+              transition: 'all 0.3s ease',
+            }}
+          >
+            <span>Explore all projects</span>
+            <ArrowRight size={22} style={{ strokeWidth: 2.2 }} />
+          </button>
+        </div>
 
         {/* Lightbox Modal */}
         {activeLightbox && (
@@ -177,7 +227,7 @@ export default function DynamicGallery() {
 
               <div style={{ padding: '2.5rem' }}>
                 <span className="badge badge-gold" style={{ marginBottom: '0.8rem' }}>{activeLightbox.category}</span>
-                <h3 className="heading-serif" style={{ fontSize: '2rem', color: '#FFF', marginBottom: '1rem' }}>
+                <h3 style={{ fontFamily: "'Lato', sans-serif", fontWeight: 700, fontSize: '2rem', color: '#FFF', marginBottom: '1rem' }}>
                   {activeLightbox.title}
                 </h3>
                 <p style={{ color: 'var(--text-muted)', fontSize: '1rem', lineHeight: 1.7, marginBottom: '2rem' }}>

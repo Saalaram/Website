@@ -42,7 +42,7 @@ export default function Footer({ onOpenQuoteModal }) {
     >
       <div className="container">
         {/* 4-col grid */}
-        <div style={{
+        <div className="footer-grid" style={{
           display: 'grid',
           gridTemplateColumns: '1.4fr 0.7fr 0.85fr 1fr',
           gap: '55px',

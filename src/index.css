@@ -81,8 +81,12 @@ ul { list-style: none; }
    LAYOUT
    ══════════════════════════════════════════════════════════════ */
 .container {
-  width: min(100% - 40px, var(--container));
+  width: min(100% - 32px, var(--container));
   margin-inline: auto;
+}
+
+@media (max-width: 480px) {
+  .container { width: min(100% - 24px, var(--container)); }
 }
 
 .section-padding { padding: 110px 0; }
@@ -620,6 +624,28 @@ ul { list-style: none; }
   from { opacity: 0; }
   to   { opacity: 1; }
 }
+@keyframes gentleBounce {
+  0%, 100% {
+    transform: translateY(0);
+    box-shadow: 0 10px 30px rgba(182, 140, 90, 0.35);
+  }
+  50% {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 38px rgba(182, 140, 90, 0.5);
+  }
+}
+
+.bouncing-services-btn {
+  animation: gentleBounce 2s infinite ease-in-out;
+}
+
+.bouncing-services-btn:hover {
+  animation-play-state: paused;
+  transform: translateY(-4px) scale(1.03) !important;
+  background-color: #c99c68 !important;
+  box-shadow: 0 22px 42px rgba(182, 140, 90, 0.55) !important;
+}
+
 @keyframes spin { to { transform: rotate(360deg); } }
 
 .spinner {
@@ -639,3 +665,114 @@ hr { border: none; border-top: 1px solid var(--border); margin: 2.5rem 0; }
 ::-webkit-scrollbar-track { background: var(--light); }
 ::-webkit-scrollbar-thumb { background: rgba(182,140,90,0.45); }
 ::-webkit-scrollbar-thumb:hover { background: var(--primary); }
+
+/* ══════════════════════════════════════════════════════════════
+   GLOBAL MOBILE RESPONSIVE OVERRIDES
+   ══════════════════════════════════════════════════════════════ */
+
+/* ─── Tablet & below (≤ 900px) ─── */
+@media (max-width: 900px) {
+  .section-padding { padding: 72px 0; }
+
+  /* Footer 4-col → 2-col */
+  .footer-grid {
+    grid-template-columns: 1fr 1fr !important;
+    gap: 36px !important;
+  }
+}
+
+/* ─── Mobile (≤ 768px) ─── */
+@media (max-width: 768px) {
+  .section-padding { padding: 60px 0; }
+
+  /* Typography scale down */
+  .section-title { font-size: clamp(1.8rem, 6vw, 2.6rem); }
+  .section-subtitle, .section-description { font-size: 0.95rem; }
+
+  /* Buttons full-width on very small screens */
+  .btn { min-height: 50px; padding: 0 22px; font-size: 0.85rem; }
+
+  /* Modal full-screen on mobile */
+  .modal-overlay { padding: 0; align-items: flex-end; }
+  .modal-content {
+    max-height: 92vh;
+    border-radius: 0;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+  }
+
+  /* Footer 4-col → 1-col */
+  .footer-grid {
+    grid-template-columns: 1fr !important;
+    gap: 32px !important;
+  }
+
+  /* Nav container height */
+  .nav-container { min-height: 70px; }
+}
+
+/* Hero text block (desktop default) */
+.hero-text-block { max-width: 640px; flex-shrink: 0; }
+
+/* ─── Component grid overrides (≤ 900px) ─── */
+@media (max-width: 900px) {
+  /* Services page: 3-col → 2-col */
+  .services-cards-grid { grid-template-columns: repeat(2, 1fr) !important; }
+
+  /* About page stats bar: 4-col → 2-col */
+  .about-stats-bar { grid-template-columns: repeat(2, 1fr) !important; }
+  .about-stats-bar > div:nth-child(odd) { border-left: none !important; }
+}
+
+/* ─── Component grid overrides (≤ 600px) ─── */
+@media (max-width: 600px) {
+  /* Services page: 2-col → 1-col */
+  .services-cards-grid { grid-template-columns: 1fr !important; }
+
+  /* Saalaram page adjustments */
+  .saalaram-hero-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
+  .saalaram-usp-strip { grid-template-columns: 1fr 1fr !important; }
+}
+
+/* ─── Small mobile (≤ 480px) ─── */
+@media (max-width: 480px) {
+  .section-padding { padding: 50px 0; }
+  .btn { font-size: 0.82rem; gap: 8px; }
+  .filter-tabs { gap: 8px; }
+  .tab-btn { padding: 8px 14px; font-size: 0.78rem; }
+
+  /* About page stats bar: 2-col on tiny screens */
+  .about-stats-bar { grid-template-columns: 1fr 1fr !important; }
+
+  /* Services hero height on mobile */
+  .services-hero { height: 260px !important; }
+}
+
+/* ─── AboutPage grid overrides (≤ 900px) ─── */
+@media (max-width: 900px) {
+  .about-md-grid    { grid-template-columns: 1fr !important; gap: 48px !important; }
+  .about-story-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
+  .about-services-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .about-contact-grid  { grid-template-columns: repeat(2, 1fr) !important; }
+}
+
+@media (max-width: 600px) {
+  .about-md-grid { grid-template-columns: 1fr !important; }
+  .about-services-grid { grid-template-columns: 1fr !important; }
+  .about-contact-grid  { grid-template-columns: 1fr !important; }
+  .about-stats-bar > div { border-left: none !important; border-bottom: 1px solid rgba(23,24,23,0.1); }
+}
+
+/* ─── ProjectsPage grid overrides ─── */
+@media (max-width: 900px) {
+  .projects-grid { grid-template-columns: repeat(2, 1fr) !important; }
+}
+
+@media (max-width: 600px) {
+  .projects-grid { grid-template-columns: 1fr !important; }
+}
+
+/* ─── SaalaramContactForm ─── */
+@media (max-width: 768px) {
+  .saalaram-contact-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
+}

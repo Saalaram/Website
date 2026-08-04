@@ -57,7 +57,7 @@ export default function AboutSection({ onOpenQuoteModal }) {
         ref={sectionRef}
         style={{
           background: '#fff',
-          padding: '110px 0',
+          padding: 'clamp(60px, 8vw, 110px) 0',
           overflow: 'hidden',
         }}
       >
@@ -124,7 +124,7 @@ export default function AboutSection({ onOpenQuoteModal }) {
                   transition: 'all 1.2s cubic-bezier(0.16, 1, 0.3, 1) 0.4s',
                 }}
               >
-                Founded in <strong style={{ color: 'var(--dark)', fontWeight: 700 }}>2023</strong> by <strong style={{ color: 'var(--dark)', fontWeight: 700 }}>Er. Kumaravel Muthusamy, ARAM Architecture</strong> is a contemporary architecture and design studio based in Coimbatore, specializing in architecture, structural engineering, interior design, and construction. We create spaces that balance functionality, aesthetics, and lasting value.
+                Founded in <strong style={{ color: 'var(--dark)', fontWeight: 700 }}>2018</strong> by <strong style={{ color: 'var(--dark)', fontWeight: 700 }}>Er. Kumaravel Muthusamy, ARAM Architecture</strong> is a contemporary architecture and design studio based in Coimbatore, specializing in architecture, structural engineering, interior design, and construction. We create spaces that balance functionality, aesthetics, and lasting value.
               </p>
               <p
                 style={{
@@ -241,7 +241,7 @@ export default function AboutSection({ onOpenQuoteModal }) {
                     fontWeight: 700,
                   }}
                 >
-                  15
+                  8
                 </strong>
                 <span
                   style={{
@@ -333,9 +333,6 @@ export default function AboutSection({ onOpenQuoteModal }) {
                 <button onClick={() => navigate('/projects')} className="btn btn-primary">
                   View Portfolio <ArrowRight size={17} />
                 </button>
-                <button onClick={onOpenQuoteModal} className="btn btn-ghost">
-                  Talk to an Engineer
-                </button>
               </div>
             </div>
 
@@ -345,7 +342,7 @@ export default function AboutSection({ onOpenQuoteModal }) {
       </section>
 
       {/* ──────────── PROCESS SECTION ──────────── */}
-      <section id="how-we-work" ref={processRef} style={{ background: 'var(--light)', padding: '110px 0', overflow: 'hidden' }}>
+      <section id="how-we-work" ref={processRef} style={{ background: 'var(--light)', padding: 'clamp(60px, 8vw, 110px) 0', overflow: 'hidden' }}>
         <div className="container">
           <div
             style={{
@@ -372,10 +369,10 @@ export default function AboutSection({ onOpenQuoteModal }) {
           {/* 3D Flip Entry Animation Cards */}
           <div className="process-cards-grid">
             {[
-              { n: '01', title: 'Site Assessment', desc: 'Free site visit, soil testing, structural feasibility, and load analysis by our senior engineers.' },
+              { n: '01', title: 'Site Assessment', desc: 'Free site visit, soil testing, and load analysis by our senior engineers.' },
               { n: '02', title: 'Design & Approval', desc: 'CAD blueprints, 3D elevations, BOQ preparation, and municipal permit facilitation.' },
-              { n: '03', title: 'Construction Execution', desc: 'Daily on-site engineer supervision, milestone billing, and Firebase real-time progress updates.' },
-              { n: '04', title: 'Handover & Warranty', desc: 'Quality inspection, snag-list closure, structural warranty certificate, and product installation.' },
+              { n: '03', title: 'Construction Execution', desc: 'Daily on-site engineer supervision, milestone billing, and real-time progress updates.' },
+              { n: '04', title: 'Handover & Warranty', desc: 'Quality inspection, snag-list closure, and product installation.' },
             ].map((step, i) => (
               <div
                 key={i}
@@ -499,7 +496,7 @@ export default function AboutSection({ onOpenQuoteModal }) {
 
       {/* ──────────── CTA SECTION ──────────── */}
       <section style={{
-        position: 'relative', padding: '110px 0',
+        position: 'relative', padding: 'clamp(60px, 8vw, 110px) 0',
         background: `
           linear-gradient(rgba(15,15,15,0.84), rgba(15,15,15,0.84)),
           url("https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=2000&q=85") center/cover fixed
@@ -508,25 +505,28 @@ export default function AboutSection({ onOpenQuoteModal }) {
       }}>
         <div className="container">
           <div style={{ maxWidth: '760px', margin: '0 auto' }}>
-            <div className="eyebrow" style={{ justifyContent: 'center', color: 'var(--primary)' }}>
+            <div className="eyebrow" style={{ fontSize: '1.1rem', fontWeight: 800, marginBottom: '18px', justifyContent: 'center' }}>
               Start Your Project Today
             </div>
             <h2 style={{
-              fontFamily: "'Playfair Display', serif",
-              fontSize: 'clamp(2.5rem, 6vw, 4.5rem)',
-              fontWeight: 600, lineHeight: 1.08,
-              letterSpacing: '-0.02em', marginBottom: '22px',
+              fontFamily: "'Lato', sans-serif",
+              fontSize: 'clamp(2.2rem, 4vw, 3.6rem)',
+              color: '#fff',
+              fontWeight: 700,
+              lineHeight: 1.12,
+              letterSpacing: '-0.02em',
+              marginBottom: '22px',
             }}>
               Ready to build something extraordinary?
             </h2>
-            <p style={{ color: 'rgba(255,255,255,0.68)', maxWidth: '560px', margin: '0 auto 36px', fontSize: '1.05rem', lineHeight: '1.7' }}>
-              Whether it's a dream villa, a structural audit, or a set of premium soundproof windows — our engineers are ready to make it happen.
+            <p style={{ color: 'rgba(255,255,255,0.72)', maxWidth: '560px', margin: '0 auto 36px', fontSize: '1.03rem', lineHeight: '1.7' }}>
+              Whether it's a dream villa, or a set of premium soundproof windows — our engineers are ready to make it happen.
             </p>
             <div style={{ display: 'flex', justifyContent: 'center', gap: '14px', flexWrap: 'wrap' }}>
-              <button onClick={onOpenQuoteModal} className="btn btn-primary" style={{ padding: '0 36px' }}>
+              <button onClick={onOpenQuoteModal} className="btn btn-primary" style={{ padding: '0 36px', fontFamily: "'Lato', sans-serif", fontWeight: 700 }}>
                 Book Free Consultation <ArrowRight size={18} />
               </button>
-              <button onClick={() => navigate('/projects')} className="btn btn-secondary" style={{ padding: '0 28px' }}>
+              <button onClick={() => navigate('/projects')} className="btn btn-secondary" style={{ padding: '0 28px', fontFamily: "'Lato', sans-serif", fontWeight: 700 }}>
                 Explore Portfolio
               </button>
             </div>
@@ -535,7 +535,7 @@ export default function AboutSection({ onOpenQuoteModal }) {
       </section>
 
       {/* ──────────── CONTACT INFO STRIP ──────────── */}
-      <section style={{ background: 'var(--dark)', padding: '0' }}>
+      <section style={{ background: 'var(--light)', padding: '0' }}>
         <div className="container">
           <div className="contact-strip-grid">
             {[
@@ -547,17 +547,18 @@ export default function AboutSection({ onOpenQuoteModal }) {
                 <div style={{
                   width: '48px', height: '48px',
                   background: 'rgba(182,140,90,0.12)',
-                  border: '1px solid rgba(182,140,90,0.25)',
+                  border: '1px solid rgba(182,140,90,0.3)',
                   display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  flexShrink: 0, color: 'var(--primary)',
+                  flexShrink: 0, color: 'var(--primary-dark)',
+                  borderRadius: '4px',
                 }}>
                   <Icon size={20} />
                 </div>
                 <div>
-                  <small style={{ display: 'block', color: 'rgba(255,255,255,0.45)', fontSize: '0.72rem', letterSpacing: '0.1em', textTransform: 'uppercase', fontWeight: 700, marginBottom: '4px' }}>
+                  <small style={{ display: 'block', color: 'var(--muted)', fontSize: '0.72rem', letterSpacing: '0.1em', textTransform: 'uppercase', fontWeight: 700, marginBottom: '4px' }}>
                     {label}
                   </small>
-                  <strong style={{ color: '#fff', fontSize: '1rem', fontWeight: 600 }}>{value}</strong>
+                  <strong style={{ color: 'var(--dark)', fontSize: '1rem', fontWeight: 700 }}>{value}</strong>
                 </div>
               </div>
             ))}
@@ -616,7 +617,7 @@ export default function AboutSection({ onOpenQuoteModal }) {
         .contact-strip-grid {
           display: grid;
           grid-template-columns: repeat(3, 1fr);
-          border-top: 1px solid rgba(255,255,255,0.06);
+          border-top: 1px solid var(--border);
         }
 
         .contact-strip-item {
@@ -624,7 +625,7 @@ export default function AboutSection({ onOpenQuoteModal }) {
           align-items: center;
           gap: 20px;
           padding: 36px 40px;
-          border-left: 1px solid rgba(255,255,255,0.06);
+          border-left: 1px solid var(--border);
         }
         .contact-strip-item:first-child {
           border-left: none;
@@ -644,8 +645,30 @@ export default function AboutSection({ onOpenQuoteModal }) {
           }
           .contact-strip-item {
             border-left: none !important;
-            border-bottom: 1px solid rgba(255,255,255,0.06);
+            border-bottom: 1px solid var(--border) !important;
             padding: 24px 20px !important;
+          }
+        }
+
+        @media (max-width: 768px) {
+          .about-lower-grid {
+            gap: 40px !important;
+          }
+          .about-lower-grid > div:first-child {
+            order: 2;
+          }
+          .about-lower-grid > div:last-child {
+            order: 1;
+          }
+          .process-cards-grid {
+            grid-template-columns: 1fr !important;
+            gap: 16px !important;
+          }
+          .bouncing-services-btn {
+            width: 100%;
+            justify-content: center;
+            padding: 16px 28px !important;
+            font-size: 1rem !important;
           }
         }
 
