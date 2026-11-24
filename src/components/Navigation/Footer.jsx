@@ -63,13 +63,14 @@ export default function Footer({ onOpenQuoteModal }) {
                 : 'Turnkey civil engineering, architectural design, structural consulting, and project management excellence.'}
             </p>
 
-            <div style={{ display: 'flex', gap: '10px' }}>
+            <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
               {['Facebook', 'Instagram', 'LinkedIn', 'YouTube'].map((social, i) => (
                 <a
                   key={i}
                   href="#"
+                  className="footer-social-icon"
                   style={{
-                    width: '34px', height: '34px',
+                    width: '40px', height: '40px',
                     border: '1px solid rgba(255,255,255,0.12)',
                     display: 'flex', alignItems: 'center', justifyContent: 'center',
                     color: 'rgba(255,255,255,0.6)', fontSize: '0.72rem',
@@ -199,13 +200,16 @@ export default function Footer({ onOpenQuoteModal }) {
         </div>
 
         {/* Bottom Bar */}
-        <div style={{
-          display: 'flex',
-          padding: '22px 0',
-          borderTop: '1px solid rgba(255,255,255,0.08)',
-          alignItems: 'center', justifyContent: 'space-between',
-          gap: '20px', fontSize: '0.82rem', flexWrap: 'wrap',
-        }}>
+        <div
+          className="footer-bottom-bar"
+          style={{
+            display: 'flex',
+            padding: '22px 0',
+            borderTop: '1px solid rgba(255,255,255,0.08)',
+            alignItems: 'center', justifyContent: 'space-between',
+            gap: '12px', fontSize: '0.82rem', flexWrap: 'wrap',
+          }}
+        >
           <span>© {new Date().getFullYear()} {isSaalaramPortal ? 'Saalaram Solutions' : 'Saalaram Engineering & Architectural Products'}. All rights reserved.</span>
           <div style={{ display: 'flex', gap: '24px' }}>
             <button onClick={() => goTo('/admin')} style={{ background: 'none', border: 'none', color: 'rgba(255,255,255,0.45)', cursor: 'pointer', fontFamily: 'Manrope, sans-serif', fontSize: '0.82rem' }}>Admin Console</button>

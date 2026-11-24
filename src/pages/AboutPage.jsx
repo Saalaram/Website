@@ -22,18 +22,21 @@ const services = [
 
 export default function AboutPage({ onOpenQuoteModal }) {
   return (
-    <div style={{ paddingTop: '88px' }}>
+    <div style={{ paddingTop: 'var(--nav-h)' }}>
 
       {/* ── HERO BANNER ── */}
-      <section style={{
-        position: 'relative',
-        height: '380px',
-        display: 'flex',
-        alignItems: 'center',
-        background: `linear-gradient(rgba(15,15,15,0.78), rgba(15,15,15,0.78)),
-          url("https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=2000&q=85") center/cover`,
-        color: '#fff',
-      }}>
+      <section
+        className="page-hero-banner"
+        style={{
+          position: 'relative',
+          height: '360px',
+          display: 'flex',
+          alignItems: 'center',
+          background: `linear-gradient(rgba(15,15,15,0.78), rgba(15,15,15,0.78)),
+            url("https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=2000&q=85") center/cover`,
+          color: '#fff',
+        }}
+      >
         <div className="container">
           <div className="eyebrow" style={{ color: 'var(--primary)' }}>Our Story</div>
           <h1 style={{
@@ -107,15 +110,18 @@ export default function AboutPage({ onOpenQuoteModal }) {
                 />
               </div>
               {/* Experience badge */}
-              <div style={{
-                position: 'absolute',
-                bottom: '-24px',
-                right: '-24px',
-                background: 'var(--dark)',
-                color: '#fff',
-                padding: '24px 28px',
-                minWidth: '160px',
-              }}>
+              <div
+                className="about-md-badge"
+                style={{
+                  position: 'absolute',
+                  bottom: '-24px',
+                  right: '-24px',
+                  background: 'var(--dark)',
+                  color: '#fff',
+                  padding: '24px 28px',
+                  minWidth: '160px',
+                }}
+              >
                 <div style={{
                   fontFamily: "'Playfair Display', serif",
                   fontSize: '2.4rem', fontWeight: 700,
@@ -359,7 +365,7 @@ export default function AboutPage({ onOpenQuoteModal }) {
               {
                 icon: Mail,
                 label: 'Email',
-                primary: 'info@saalaram.com',
+                primary: 'saalaramsolutions@gmail.com',
                 secondary: 'We respond within 24 hours',
               },
               {
@@ -369,13 +375,16 @@ export default function AboutPage({ onOpenQuoteModal }) {
                 secondary: '[Full Address Placeholder]',
               },
             ].map(({ icon: Icon, label, primary, secondary }, i) => (
-              <div key={i} style={{
-                background: 'rgba(255,255,255,0.05)',
-                border: '1px solid rgba(255,255,255,0.1)',
-                padding: '40px 36px',
-                textAlign: 'center',
-                transition: 'border-color 0.3s',
-              }}
+              <div
+                key={i}
+                className="about-contact-card"
+                style={{
+                  background: 'rgba(255,255,255,0.05)',
+                  border: '1px solid rgba(255,255,255,0.1)',
+                  padding: '40px 36px',
+                  textAlign: 'center',
+                  transition: 'border-color 0.3s',
+                }}
                 onMouseEnter={e => e.currentTarget.style.borderColor = 'var(--primary)'}
                 onMouseLeave={e => e.currentTarget.style.borderColor = 'rgba(255,255,255,0.1)'}
               >

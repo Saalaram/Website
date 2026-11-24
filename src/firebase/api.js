@@ -1,12 +1,12 @@
 import { db, storage } from './config';
-import { 
-  collection, 
-  getDocs, 
-  addDoc, 
-  query, 
-  where, 
-  orderBy, 
-  serverTimestamp 
+import {
+  collection,
+  getDocs,
+  addDoc,
+  query,
+  where,
+  orderBy,
+  serverTimestamp
 } from 'firebase/firestore';
 import { ref, uploadBytesResumable, getDownloadURL } from 'firebase/storage';
 import { initialProjects, initialProducts } from './mockData';
@@ -49,7 +49,7 @@ export async function getProjects(categoryFilter = 'All') {
   } catch (err) {
     console.warn("Firebase Firestore connection notice - fallback to cached data:", err.message);
   }
-  
+
   // Fallback / Demo data mode
   const localProjects = getLocalItems(LOCAL_STORAGE_PROJECTS, initialProjects);
   if (categoryFilter === 'All') return localProjects;
@@ -211,7 +211,7 @@ export async function getInquiries() {
       id: "inq_demo_1",
       customerName: "Vikram Malhotra",
       email: "vikram@architects.in",
-      phone: "+91 98765 43210",
+      phone: "+91 81221 98345",
       serviceType: "Windows & Blinds",
       projectScope: "3 BHK Apartment Glazing & Motorized Blinds",
       attachedFileUrl: "Blueprint_FloorPlan_v2.pdf",

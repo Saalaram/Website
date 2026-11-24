@@ -74,7 +74,7 @@ export default function HeroSection({ onOpenQuoteModal }) {
   const slide = SLIDES[current];
 
   return (
-    <section style={{ position: 'relative', height: 'calc(100vh - 88px)', minHeight: '600px', marginTop: '88px', overflow: 'hidden' }}>
+    <section style={{ position: 'relative', height: 'calc(100dvh - var(--nav-h))', minHeight: '580px', marginTop: 'var(--nav-h)', overflow: 'hidden' }}>
 
       {/* Background image with cross-fade */}
       {SLIDES.map((s, i) => (
@@ -110,7 +110,7 @@ export default function HeroSection({ onOpenQuoteModal }) {
         alignItems: 'center',
         justifyContent: 'space-between',
         paddingTop: '40px',
-        paddingBottom: '140px',
+        paddingBottom: 'clamp(100px, 15vw, 140px)',
         gap: '40px',
       }}>
         <div className="hero-text-block">
@@ -170,12 +170,15 @@ export default function HeroSection({ onOpenQuoteModal }) {
           </p>
 
           {/* CTAs */}
-          <div style={{
-            display: 'flex', flexWrap: 'wrap', gap: '14px',
-            opacity: visible ? 1 : 0,
-            transform: visible ? 'translateY(0)' : 'translateY(16px)',
-            transition: 'opacity 0.6s ease 0.4s, transform 0.6s ease 0.4s',
-          }}>
+          <div
+            className="hero-cta-group"
+            style={{
+              display: 'flex', flexWrap: 'wrap', gap: '14px',
+              opacity: visible ? 1 : 0,
+              transform: visible ? 'translateY(0)' : 'translateY(16px)',
+              transition: 'opacity 0.6s ease 0.4s, transform 0.6s ease 0.4s',
+            }}
+          >
             <button onClick={() => navigate(slide.cta)} className="btn btn-primary">
               {slide.ctaLabel} <ArrowRight size={18} />
             </button>
@@ -283,39 +286,6 @@ export default function HeroSection({ onOpenQuoteModal }) {
         <ChevronDown size={20} />
       </div>
 
-      <style>{`
-        @keyframes scrollBounce {
-          0%, 100% { transform: translateX(-50%) translateY(0); }
-          50% { transform: translateX(-50%) translateY(6px); }
-        }
-        @media (min-width: 1100px) {
-          .hero-side-panel { display: flex !important; }
-        }
-        /* Mobile hero adjustments */
-        @media (max-width: 768px) {
-          .hero-text-block {
-            max-width: 100% !important;
-          }
-          .hero-stats-bar {
-            width: 100% !important;
-            left: 0 !important;
-            right: 0 !important;
-          }
-          .hero-stats-bar > div {
-            padding: 18px 14px !important;
-          }
-          .hero-stats-bar strong {
-            font-size: 1.6rem !important;
-          }
-          .hero-arrow-prev { left: 8px !important; width: 38px !important; height: 38px !important; }
-          .hero-arrow-next { right: 8px !important; width: 38px !important; height: 38px !important; }
-        }
-        @media (max-width: 480px) {
-          .hero-stats-bar {
-            display: none !important;
-          }
-        }
-      `}</style>
     </section>
   );
 }

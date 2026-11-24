@@ -287,27 +287,30 @@ export default function QuoteCalculator({ defaultSubject = '', isOpenModal = fal
             )}
 
             {/* Calculated Estimate Box */}
-            <div style={{
-              marginTop: '1.5rem',
-              padding: '1.25rem',
-              borderRadius: '10px',
-              background: 'linear-gradient(135deg, rgba(197, 168, 128, 0.15) 0%, rgba(30, 35, 45, 0.4) 100%)',
-              border: '1px solid var(--border-gold)',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'space-between',
-              flexWrap: 'wrap',
-              gap: '1rem'
-            }}>
+            <div
+              className="estimate-box"
+              style={{
+                marginTop: '1.5rem',
+                padding: '1.25rem',
+                borderRadius: '10px',
+                background: 'linear-gradient(135deg, rgba(197, 168, 128, 0.15) 0%, rgba(30, 35, 45, 0.4) 100%)',
+                border: '1px solid var(--border-gold)',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                flexWrap: 'wrap',
+                gap: '1rem'
+              }}
+            >
               <div>
                 <div style={{ fontSize: '0.82rem', color: 'var(--text-muted)', textTransform: 'uppercase', letterSpacing: '0.05em' }}>
                   Estimated Investment Budget Range
                 </div>
-                <div className="heading-serif text-gradient-gold" style={{ fontSize: '1.8rem', fontWeight: 700 }}>
+                <div className="heading-serif text-gradient-gold estimate-amount" style={{ fontSize: '1.8rem', fontWeight: 700 }}>
                   ₹{(estimate.min / 100000).toFixed(2)} Lakhs – ₹{(estimate.max / 100000).toFixed(2)} Lakhs
                 </div>
               </div>
-              <span className="badge badge-emerald">Includes Material & Labor</span>
+              <span className="badge badge-emerald">Includes Material &amp; Labor</span>
             </div>
           </div>
 

@@ -232,12 +232,12 @@ export default function SaalaramPage({ onOpenQuoteModal }) {
   const displayed = [...fbFiltered, ...staticData];
 
   return (
-    <div style={{ paddingTop: '88px' }}>
+    <div style={{ paddingTop: 'var(--nav-h)' }}>
 
       {/* ── BRAND HERO ── */}
       <section style={{
         background: 'var(--dark)',
-        padding: '100px 0',
+        padding: 'clamp(60px, 8vw, 100px) 0',
         position: 'relative',
         overflow: 'hidden',
       }}>
@@ -274,7 +274,7 @@ export default function SaalaramPage({ onOpenQuoteModal }) {
               </div>
               <h1 style={{
                 fontFamily: "'Playfair Display', serif",
-                fontSize: 'clamp(3rem, 7vw, 5.5rem)',
+                fontSize: 'clamp(2.8rem, 10vw, 5.5rem)',
                 fontWeight: 700,
                 color: '#fff',
                 lineHeight: 0.95,
@@ -373,14 +373,16 @@ export default function SaalaramPage({ onOpenQuoteModal }) {
           </div>
 
           {/* Category Tabs */}
-          <div className="saalaram-category-tabs" style={{ display: 'flex', gap: '0', marginBottom: '50px', border: '1px solid var(--border)', width: 'fit-content', flexWrap: 'wrap' }}>
+          <div className="saalaram-category-tabs" style={{ display: 'flex', gap: '0', marginBottom: '40px', border: '1px solid var(--border)', width: '100%', flexWrap: 'wrap' }}>
             {categoryConfig.map(({ id, label, icon: Icon }, i) => (
               <button
                 key={id}
                 onClick={() => setActiveCategory(id)}
                 style={{
-                  padding: '14px 36px',
-                  display: 'flex', alignItems: 'center', gap: '10px',
+                  flex: 1,
+                  minWidth: '100px',
+                  padding: '14px 20px',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '10px',
                   background: activeCategory === id ? 'var(--dark)' : '#fff',
                   color: activeCategory === id ? '#fff' : 'var(--muted)',
                   border: 'none',
@@ -391,6 +393,7 @@ export default function SaalaramPage({ onOpenQuoteModal }) {
                   fontSize: '0.9rem',
                   letterSpacing: '0.04em',
                   transition: 'all 0.3s',
+                  whiteSpace: 'nowrap',
                 }}
               >
                 <Icon size={17} />
@@ -402,8 +405,8 @@ export default function SaalaramPage({ onOpenQuoteModal }) {
           {/* Products */}
           <div style={{
             display: 'grid',
-            gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
-            gap: '28px',
+            gridTemplateColumns: 'repeat(auto-fill, minmax(min(300px, 100%), 1fr))',
+            gap: '24px',
           }}>
             {displayed.map(prod => (
               <ProductCard
@@ -482,6 +485,9 @@ export default function SaalaramPage({ onOpenQuoteModal }) {
             grid-template-columns: 1fr !important;
             gap: 40px !important;
           }
+          .saalaram-hero-grid > div:last-child {
+            display: none;
+          }
           .saalaram-usp-strip {
             grid-template-columns: repeat(2, 1fr) !important;
           }
@@ -494,8 +500,9 @@ export default function SaalaramPage({ onOpenQuoteModal }) {
           .saalaram-category-tabs button {
             flex: 1;
             min-width: 0;
-            padding: 12px 20px !important;
+            padding: 12px 16px !important;
             justify-content: center;
+            font-size: 0.85rem !important;
           }
         }
         @media (max-width: 600px) {
@@ -505,12 +512,16 @@ export default function SaalaramPage({ onOpenQuoteModal }) {
           .saalaram-usp-strip {
             grid-template-columns: 1fr 1fr !important;
           }
+          .saalaram-usp-strip > div {
+            padding: 20px 14px !important;
+          }
           .saalaram-category-tabs {
             width: 100% !important;
           }
           .saalaram-category-tabs button {
-            padding: 10px 14px !important;
-            font-size: 0.82rem !important;
+            padding: 12px 10px !important;
+            font-size: 0.78rem !important;
+            gap: 6px !important;
           }
         }
         @media (max-width: 400px) {

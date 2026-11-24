@@ -7,7 +7,7 @@ export default function SaalaramAbout({ onOpenQuoteModal }) {
   const navigate = useNavigate();
 
   return (
-    <div style={{ paddingTop: '88px', background: '#0a1222', color: '#fff', minHeight: '100vh' }}>
+    <div style={{ paddingTop: 'var(--nav-h)', background: '#0a1222', color: '#fff', minHeight: '100vh' }}>
 
       {/* ── HERO BANNER ── */}
       <section style={{

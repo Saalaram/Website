@@ -113,18 +113,21 @@ export default function ServicesPage({ onOpenQuoteModal }) {
   const [activeService, setActiveService] = useState(null);
 
   return (
-    <div style={{ paddingTop: '88px' }}>
+    <div style={{ paddingTop: 'var(--nav-h)' }}>
 
       {/* ── HERO ── */}
-      <section style={{
-        position: 'relative',
-        height: '380px',
-        display: 'flex',
-        alignItems: 'center',
-        background: `linear-gradient(rgba(15,15,15,0.80), rgba(15,15,15,0.80)),
-          url("https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=2000&q=85") center/cover`,
-        color: '#fff',
-      }}>
+      <section
+        className="page-hero-banner"
+        style={{
+          position: 'relative',
+          height: '360px',
+          display: 'flex',
+          alignItems: 'center',
+          background: `linear-gradient(rgba(15,15,15,0.80), rgba(15,15,15,0.80)),
+            url("https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=2000&q=85") center/cover`,
+          color: '#fff',
+        }}
+      >
         <div className="container">
           <div className="eyebrow" style={{ color: 'var(--primary)' }}>What We Offer</div>
           <h1 style={{
@@ -270,8 +273,9 @@ export default function ServicesPage({ onOpenQuoteModal }) {
       {/* ── WHY SAALARAM CTA ── */}
       <section style={{
         background: `linear-gradient(rgba(15,15,15,0.84), rgba(15,15,15,0.84)),
-          url("https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=2000&q=85") center/cover fixed`,
-        padding: '110px 0',
+          url("https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?auto=format&fit=crop&w=2000&q=85") center/cover`,
+        backgroundAttachment: 'scroll',
+        padding: '90px 0',
         color: '#fff',
         textAlign: 'center',
       }}>

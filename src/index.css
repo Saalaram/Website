@@ -6,6 +6,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,400&display=swap');
 
 :root {
+  --nav-h: 88px;
   --primary:       #b68c5a;
   --primary-dark:  #8d683d;
   --primary-light: #d4a86a;
@@ -310,10 +311,13 @@ ul { list-style: none; }
 
 .nav-container {
   display: flex;
-  min-height: 88px;
+  min-height: var(--nav-h);
   align-items: center;
   justify-content: space-between;
 }
+
+/* Offset utility: push page content below fixed navbar */
+.page-top-offset { padding-top: var(--nav-h); }
 
 .logo-brand {
   display: flex;
@@ -648,6 +652,12 @@ ul { list-style: none; }
 
 @keyframes spin { to { transform: rotate(360deg); } }
 
+@keyframes scrollBounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50%       { transform: translateX(-50%) translateY(6px); }
+}
+
+
 .spinner {
   width: 36px; height: 36px;
   border: 2px solid rgba(182, 140, 90, 0.2);
@@ -670,6 +680,15 @@ hr { border: none; border-top: 1px solid var(--border); margin: 2.5rem 0; }
    GLOBAL MOBILE RESPONSIVE OVERRIDES
    ══════════════════════════════════════════════════════════════ */
 
+/* ─── Navbar mobile show/hide ─── */
+.mobile-menu-btn { display: none; }
+.mobile-portal-btn { display: none; }
+@media (max-width: 1100px) {
+  .nav-links     { display: none !important; }
+  .mobile-menu-btn { display: flex !important; }
+  .mobile-portal-btn { display: inline-flex !important; align-items: center; }
+}
+
 /* ─── Tablet & below (≤ 900px) ─── */
 @media (max-width: 900px) {
   .section-padding { padding: 72px 0; }
@@ -686,19 +705,18 @@ hr { border: none; border-top: 1px solid var(--border); margin: 2.5rem 0; }
   .section-padding { padding: 60px 0; }
 
   /* Typography scale down */
-  .section-title { font-size: clamp(1.8rem, 6vw, 2.6rem); }
-  .section-subtitle, .section-description { font-size: 0.95rem; }
+  .section-title { font-size: clamp(1.7rem, 6vw, 2.4rem); }
+  .section-subtitle, .section-description { font-size: 0.92rem; }
 
-  /* Buttons full-width on very small screens */
-  .btn { min-height: 50px; padding: 0 22px; font-size: 0.85rem; }
+  /* Touch-safe button size */
+  .btn { min-height: 48px; padding: 0 20px; font-size: 0.85rem; }
 
-  /* Modal full-screen on mobile */
+  /* Modal: slide up from bottom on mobile */
   .modal-overlay { padding: 0; align-items: flex-end; }
   .modal-content {
-    max-height: 92vh;
+    max-height: 94vh;
     border-radius: 0;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
+    border-top: 3px solid var(--primary);
   }
 
   /* Footer 4-col → 1-col */
@@ -708,7 +726,47 @@ hr { border: none; border-top: 1px solid var(--border); margin: 2.5rem 0; }
   }
 
   /* Nav container height */
-  .nav-container { min-height: 70px; }
+  --nav-h: 68px;
+  .nav-container { min-height: 68px; }
+
+  /* Navbar logo mobile */
+  .navbar-logo-img { height: 44px !important; max-height: 44px !important; }
+
+  /* Saalaram contact grid */
+  .saalaram-contact-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
+
+  /* Hero: full-width text */
+  .hero-text-block { max-width: 100% !important; }
+
+  /* Hero: stats bar full width */
+  .hero-stats-bar {
+    width: 100% !important;
+    left: 0 !important;
+    right: 0 !important;
+    grid-template-columns: repeat(3, 1fr) !important;
+  }
+  .hero-stats-bar > div { padding: 16px 12px !important; }
+  .hero-stats-bar strong { font-size: 1.5rem !important; }
+
+  /* Hero arrows smaller */
+  .hero-arrow-prev { left: 8px !important; width: 38px !important; height: 38px !important; }
+  .hero-arrow-next { right: 8px !important; width: 38px !important; height: 38px !important; }
+
+  /* Services: cards less padding */
+  .services-cards-grid > div > div:first-child { padding: 28px 22px !important; }
+
+  /* AboutSection contact strip */
+  .contact-strip-grid {
+    grid-template-columns: 1fr !important;
+    gap: 0 !important;
+  }
+
+  /* Footer bottom bar: stack on mobile */
+  .footer-bottom-bar {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    gap: 12px !important;
+  }
 }
 
 /* Hero text block (desktop default) */
@@ -722,6 +780,15 @@ hr { border: none; border-top: 1px solid var(--border); margin: 2.5rem 0; }
   /* About page stats bar: 4-col → 2-col */
   .about-stats-bar { grid-template-columns: repeat(2, 1fr) !important; }
   .about-stats-bar > div:nth-child(odd) { border-left: none !important; }
+
+  /* AboutPage grids */
+  .about-md-grid    { grid-template-columns: 1fr !important; gap: 48px !important; }
+  .about-story-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
+  .about-services-grid { grid-template-columns: repeat(2, 1fr) !important; }
+  .about-contact-grid  { grid-template-columns: repeat(2, 1fr) !important; }
+
+  /* Saalaram page */
+  .saalaram-hero-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
 }
 
 /* ─── Component grid overrides (≤ 600px) ─── */
@@ -730,49 +797,95 @@ hr { border: none; border-top: 1px solid var(--border); margin: 2.5rem 0; }
   .services-cards-grid { grid-template-columns: 1fr !important; }
 
   /* Saalaram page adjustments */
-  .saalaram-hero-grid { grid-template-columns: 1fr !important; gap: 32px !important; }
   .saalaram-usp-strip { grid-template-columns: 1fr 1fr !important; }
+
+  /* About page full single col */
+  .about-services-grid { grid-template-columns: 1fr !important; }
+  .about-contact-grid  { grid-template-columns: 1fr !important; }
+  .about-stats-bar > div {
+    border-left: none !important;
+    border-bottom: 1px solid rgba(23,24,23,0.1);
+  }
+
+  /* Page hero banners shorter */
+  .page-hero-banner { height: 260px !important; min-height: 240px !important; }
+
+  /* Projects toggle buttons — full width */
+  .projects-toggle { width: 100% !important; }
+  .projects-toggle button { flex: 1 !important; padding: 12px 16px !important; font-size: 0.85rem !important; }
+
+  /* QuoteCalculator estimate amount wraps */
+  .estimate-box { flex-direction: column !important; align-items: flex-start !important; }
+  .estimate-amount { font-size: 1.4rem !important; }
 }
 
 /* ─── Small mobile (≤ 480px) ─── */
 @media (max-width: 480px) {
-  .section-padding { padding: 50px 0; }
-  .btn { font-size: 0.82rem; gap: 8px; }
+  .section-padding { padding: 48px 0; }
+  .container { width: min(100% - 24px, var(--container)); }
+  .btn { min-height: 46px; font-size: 0.82rem; gap: 8px; }
   .filter-tabs { gap: 8px; }
   .tab-btn { padding: 8px 14px; font-size: 0.78rem; }
 
   /* About page stats bar: 2-col on tiny screens */
   .about-stats-bar { grid-template-columns: 1fr 1fr !important; }
 
-  /* Services hero height on mobile */
-  .services-hero { height: 260px !important; }
-}
+  /* Hide hero stats on tiny phones */
+  .hero-stats-bar { display: none !important; }
 
-/* ─── AboutPage grid overrides (≤ 900px) ─── */
-@media (max-width: 900px) {
-  .about-md-grid    { grid-template-columns: 1fr !important; gap: 48px !important; }
-  .about-story-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
-  .about-services-grid { grid-template-columns: repeat(2, 1fr) !important; }
-  .about-contact-grid  { grid-template-columns: repeat(2, 1fr) !important; }
-}
+  /* Hero CTA buttons: stack vertically */
+  .hero-cta-group {
+    flex-direction: column !important;
+    width: 100%;
+  }
+  .hero-cta-group .btn { width: 100%; justify-content: center; }
 
-@media (max-width: 600px) {
-  .about-md-grid { grid-template-columns: 1fr !important; }
-  .about-services-grid { grid-template-columns: 1fr !important; }
-  .about-contact-grid  { grid-template-columns: 1fr !important; }
-  .about-stats-bar > div { border-left: none !important; border-bottom: 1px solid rgba(23,24,23,0.1); }
+  /* AboutSection process steps: remove big horizontal spacing */
+  .process-step-number { font-size: 3rem !important; }
+
+  /* AboutPage MD badge: repositioned on tiny screens */
+  .about-md-badge {
+    right: 0 !important;
+    bottom: -16px !important;
+    padding: 16px 20px !important;
+    min-width: 130px !important;
+  }
+
+  /* Services contact card padding */
+  .about-contact-card { padding: 28px 20px !important; }
+
+  /* Footer social icons — ensure 44px tap target */
+  .footer-social-icon { width: 44px !important; height: 44px !important; }
 }
 
 /* ─── ProjectsPage grid overrides ─── */
 @media (max-width: 900px) {
   .projects-grid { grid-template-columns: repeat(2, 1fr) !important; }
 }
-
 @media (max-width: 600px) {
   .projects-grid { grid-template-columns: 1fr !important; }
 }
 
-/* ─── SaalaramContactForm ─── */
+/* ─── Lightbox mobile ─── */
+@media (max-width: 600px) {
+  .lightbox-image { height: 240px !important; }
+  .lightbox-body  { padding: 1.5rem !important; }
+}
+
+/* ─── Mobile utility classes ─── */
 @media (max-width: 768px) {
-  .saalaram-contact-grid { grid-template-columns: 1fr !important; gap: 40px !important; }
+  .mobile-hide { display: none !important; }
+  .mobile-full { width: 100% !important; }
+  .mobile-center { text-align: center !important; }
+  .mobile-stack {
+    flex-direction: column !important;
+    align-items: stretch !important;
+  }
+  .mobile-stack > * { width: 100% !important; }
+}
+
+/* ─── iOS Safari safe-area support ─── */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  .site-footer { padding-bottom: max(0px, env(safe-area-inset-bottom)); }
+  .navbar-fixed { padding-top: env(safe-area-inset-top, 0); }
 }

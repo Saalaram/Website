@@ -499,8 +499,9 @@ export default function AboutSection({ onOpenQuoteModal }) {
         position: 'relative', padding: 'clamp(60px, 8vw, 110px) 0',
         background: `
           linear-gradient(rgba(15,15,15,0.84), rgba(15,15,15,0.84)),
-          url("https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=2000&q=85") center/cover fixed
+          url("https://images.unsplash.com/photo-1504307651254-35680f356dfd?auto=format&fit=crop&w=2000&q=85") center/cover
         `,
+        backgroundAttachment: 'scroll',
         color: '#fff', textAlign: 'center',
       }}>
         <div className="container">
@@ -510,7 +511,7 @@ export default function AboutSection({ onOpenQuoteModal }) {
             </div>
             <h2 style={{
               fontFamily: "'Lato', sans-serif",
-              fontSize: 'clamp(2.2rem, 4vw, 3.6rem)',
+              fontSize: 'clamp(1.8rem, 4vw, 3.6rem)',
               color: '#fff',
               fontWeight: 700,
               lineHeight: 1.12,
@@ -522,7 +523,7 @@ export default function AboutSection({ onOpenQuoteModal }) {
             <p style={{ color: 'rgba(255,255,255,0.72)', maxWidth: '560px', margin: '0 auto 36px', fontSize: '1.03rem', lineHeight: '1.7' }}>
               Whether it's a dream villa, or a set of premium soundproof windows — our engineers are ready to make it happen.
             </p>
-            <div style={{ display: 'flex', justifyContent: 'center', gap: '14px', flexWrap: 'wrap' }}>
+            <div className="cta-btn-group" style={{ display: 'flex', justifyContent: 'center', gap: '14px', flexWrap: 'wrap' }}>
               <button onClick={onOpenQuoteModal} className="btn btn-primary" style={{ padding: '0 36px', fontFamily: "'Lato', sans-serif", fontWeight: 700 }}>
                 Book Free Consultation <ArrowRight size={18} />
               </button>
@@ -539,9 +540,9 @@ export default function AboutSection({ onOpenQuoteModal }) {
         <div className="container">
           <div className="contact-strip-grid">
             {[
-              { icon: Phone, label: 'Call Us', value: '+91 98765 43210' },
-              { icon: Mail, label: 'Email Us', value: 'info@saalaram.com' },
-              { icon: MapPin, label: 'Visit Us', value: 'Madurai, Tamil Nadu' },
+              { icon: Phone, label: 'Call Us', value: '+91 81221 98345' },
+              { icon: Mail, label: 'Email Us', value: 'saalaramsolutions@gmail.com' },
+              { icon: MapPin, label: 'Visit Us', value: 'Coimbatore, Tamil Nadu' },
             ].map(({ icon: Icon, label, value }, i) => (
               <div key={i} className="contact-strip-item">
                 <div style={{
@@ -670,11 +671,25 @@ export default function AboutSection({ onOpenQuoteModal }) {
             padding: 16px 28px !important;
             font-size: 1rem !important;
           }
+          .cta-btn-group {
+            flex-direction: column !important;
+            align-items: center !important;
+          }
+          .cta-btn-group .btn {
+            width: 100% !important;
+            max-width: 320px;
+          }
         }
 
         @media (max-width: 576px) {
           .process-cards-grid {
             grid-template-columns: 1fr !important;
+          }
+          .about-lower-grid > div:first-child {
+            order: 1;
+          }
+          .about-lower-grid > div:last-child {
+            order: 2;
           }
         }
       `}</style>

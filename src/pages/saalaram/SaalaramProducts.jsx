@@ -134,7 +134,7 @@ export default function SaalaramProducts({ onOpenQuoteModal }) {
     : combined.filter(p => p.category?.toLowerCase() === activeCategory);
 
   return (
-    <div style={{ paddingTop: '88px', background: '#0a1222', color: '#fff', minHeight: '100vh' }}>
+    <div style={{ paddingTop: 'var(--nav-h)', background: '#0a1222', color: '#fff', minHeight: '100vh' }}>
 
       {/* ── HERO BANNER ── */}
       <section style={{

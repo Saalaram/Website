@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Square, DoorOpen, Lightbulb, ArrowRight,
-  Check, Eye, Star, X, Sparkles, ShieldCheck, Award, Layers
+  Check, Sparkles, ShieldCheck, Award, Layers
 } from 'lucide-react';
-import { getProducts } from '../../firebase/api';
 import SaalaramContactForm from '../../components/Saalaram/SaalaramContactForm';
 
 const staticFeatured = [
@@ -13,8 +12,6 @@ const staticFeatured = [
     name: 'uPVC Acoustic Sliding Window',
     description: 'High-performance 3-track uPVC sliding window with German hardware, mosquito mesh, and multi-point locking.',
     material: 'German uPVC Profile',
-    rating: 4.9,
-    specs: ['Acoustic STC rating 38dB', 'Air infiltration < 1.0 m³/hr', 'Water tightness at 600 Pa'],
     images: ['https://images.unsplash.com/photo-1601760561441-16420502c7e0?auto=format&fit=crop&w=700&q=85'],
   },
   {
@@ -22,51 +19,41 @@ const staticFeatured = [
     name: 'Aluminium Heavy-Duty French Door',
     description: 'Double-leaf aluminium French doors with floor-to-ceiling toughened safety glass and thermal break.',
     material: 'Aluminium 6063 T5 Alloy',
-    rating: 4.9,
-    specs: ['5-point multi-locking system', 'Anti-burglary RC2 class rating', 'Acoustic insulation 42dB'],
     images: ['https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?auto=format&fit=crop&w=700&q=85'],
   },
   {
     id: 'l1', category: 'Lights',
     name: 'Architectural Recessed LED Panel',
-    description: 'Ultra-slim surface-mount or recessed LED panel with flicker-free driver and high CRI >95.',
+    description: 'Ultra-slim surface-mount or recessed LED panel with flicker-free driver and high CRI greater than 95.',
     material: 'Aluminium Housing + Polycarbonate Diffuser',
-    rating: 4.8,
-    specs: ['40W / 4200 lumen output', 'CRI > 95 for true colour rendering', '50,000 hour rated lifespan'],
     images: ['https://images.unsplash.com/photo-1565814329452-e1efa11c5b89?auto=format&fit=crop&w=700&q=85'],
   },
 ];
 
 export default function SaalaramHome({ onOpenQuoteModal }) {
   const navigate = useNavigate();
-  const [selectedProduct, setSelectedProduct] = useState(null);
 
   return (
-    <div style={{ paddingTop: '88px', background: '#0a1222', color: '#fff', minHeight: '100vh' }}>
+    <div style={{ paddingTop: 'var(--nav-h)', background: '#0a1222', color: '#fff', minHeight: '100vh', overflowX: 'hidden' }}>
 
       {/* ── HERO BANNER ── */}
       <section style={{
         position: 'relative',
-        padding: '110px 0 100px 0',
+        padding: 'clamp(56px, 8vw, 110px) 0',
         background: `radial-gradient(ellipse 90% 70% at 50% -10%, rgba(37,99,235,0.28) 0%, transparent 80%),
           linear-gradient(180deg, #0d172a 0%, #09101f 100%)`,
         overflow: 'hidden',
         borderBottom: '1px solid rgba(59,130,246,0.15)',
       }}>
-        {/* Subtle grid accent */}
         <div style={{
           position: 'absolute', inset: 0, opacity: 0.05,
-          backgroundImage: `radial-gradient(#ffffff 1px, transparent 1px)`,
+          backgroundImage: 'radial-gradient(#ffffff 1px, transparent 1px)',
           backgroundSize: '24px 24px', pointerEvents: 'none',
         }} />
 
         <div className="container">
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: '1.1fr 0.9fr',
-            gap: '60px',
-            alignItems: 'center',
-          }}>
+          <div className="sl-hero-grid">
+            {/* Left: Text */}
             <div>
               <div style={{
                 display: 'inline-flex', alignItems: 'center', gap: '8px',
@@ -75,40 +62,48 @@ export default function SaalaramHome({ onOpenQuoteModal }) {
                 fontSize: '0.78rem', fontWeight: 700, letterSpacing: '0.14em',
                 textTransform: 'uppercase', marginBottom: '24px',
               }}>
-                <Sparkles size={14} /> Architectural Fenestration & Lighting
+                <Sparkles size={14} /> Architectural Fenestration &amp; Lighting
               </div>
+
               <h1 style={{
                 fontFamily: "'Playfair Display', serif",
-                fontSize: 'clamp(2.6rem, 6vw, 4.8rem)',
+                fontSize: 'clamp(2.2rem, 8vw, 4.8rem)',
                 fontWeight: 700, lineHeight: 1.05,
                 color: '#fff', letterSpacing: '-0.02em',
                 marginBottom: '22px',
               }}>
                 Saalaram <span style={{ color: '#60a5fa' }}>Solutions</span>
               </h1>
-              <p style={{ color: 'rgba(255,255,255,0.7)', fontSize: '1.08rem', lineHeight: '1.78', maxWidth: '520px', marginBottom: '36px' }}>
-                Engineered soundproof windows, thermal doors, motorized blinds, and architectural lighting systems built for acoustic isolation and luxury homes in South India.
+
+              <p style={{
+                color: 'rgba(255,255,255,0.7)', fontSize: 'clamp(0.92rem, 2.5vw, 1.08rem)',
+                lineHeight: '1.78', maxWidth: '520px', marginBottom: '36px',
+              }}>
+                Engineered soundproof windows, thermal doors, motorized blinds, and architectural lighting
+                systems built for acoustic isolation and luxury homes in South India.
               </p>
-              <div style={{ display: 'flex', gap: '16px', flexWrap: 'wrap' }}>
+
+              <div className="sl-hero-btns">
                 <button
                   onClick={() => navigate('/saalaram/products')}
                   style={{
-                    padding: '0 32px', height: '54px',
+                    padding: '0 32px', height: '52px',
                     background: '#2563eb', border: 'none', color: '#fff',
                     fontFamily: 'Manrope, sans-serif', fontWeight: 700, fontSize: '0.92rem',
-                    cursor: 'pointer', display: 'inline-flex', alignItems: 'center', gap: '10px',
+                    cursor: 'pointer', display: 'inline-flex', alignItems: 'center',
+                    justifyContent: 'center', gap: '10px',
                     boxShadow: '0 8px 24px rgba(37,99,235,0.4)',
                     transition: 'transform 0.2s ease',
                   }}
-                  onMouseEnter={(e) => e.currentTarget.style.transform = 'translateY(-2px)'}
-                  onMouseLeave={(e) => e.currentTarget.style.transform = 'translateY(0)'}
+                  onMouseEnter={(e) => { e.currentTarget.style.transform = 'translateY(-2px)'; }}
+                  onMouseLeave={(e) => { e.currentTarget.style.transform = 'translateY(0)'; }}
                 >
                   Explore Products <ArrowRight size={16} />
                 </button>
                 <a
                   href="#contact-us"
                   style={{
-                    padding: '0 28px', height: '54px',
+                    padding: '0 28px', height: '52px',
                     background: 'transparent', border: '1px solid rgba(255,255,255,0.3)', color: '#fff',
                     fontFamily: 'Manrope, sans-serif', fontWeight: 700, fontSize: '0.92rem',
                     cursor: 'pointer', display: 'inline-flex', alignItems: 'center', justifyContent: 'center',
@@ -120,13 +115,12 @@ export default function SaalaramHome({ onOpenQuoteModal }) {
               </div>
             </div>
 
-            {/* Right side Logo Display */}
-            <div style={{
+            {/* Right: Logo panel — hidden on mobile via CSS */}
+            <div className="sl-hero-logo-panel" style={{
               background: '#111d33',
               border: '1px solid rgba(59,130,246,0.3)',
               padding: '24px',
               boxShadow: '0 24px 60px rgba(0,0,0,0.5)',
-              position: 'relative',
             }}>
               <img
                 src="/assets/logos/Saalaram.jpeg"
@@ -137,8 +131,11 @@ export default function SaalaramHome({ onOpenQuoteModal }) {
                 padding: '16px 20px', background: 'rgba(15,25,46,0.9)',
                 borderTop: '1px solid rgba(59,130,246,0.2)',
                 display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                flexWrap: 'wrap', gap: '8px',
               }}>
-                <span style={{ color: 'rgba(255,255,255,0.65)', fontSize: '0.8rem', fontWeight: 600 }}>ISO 9001:2015 Certified Manufacturing</span>
+                <span style={{ color: 'rgba(255,255,255,0.65)', fontSize: '0.8rem', fontWeight: 600 }}>
+                  ISO 9001:2015 Certified Manufacturing
+                </span>
                 <span style={{ color: '#60a5fa', fontSize: '0.8rem', fontWeight: 700 }}>10-Yr Warranty</span>
               </div>
             </div>
@@ -146,25 +143,39 @@ export default function SaalaramHome({ onOpenQuoteModal }) {
         </div>
       </section>
 
-      {/* ── ABOUT US SECTION ── */}
-      <section id="about-us" style={{ padding: '90px 0', background: '#09101f', borderBottom: '1px solid rgba(59,130,246,0.15)' }}>
+      {/* ── ABOUT US ── */}
+      <section id="about-us" style={{
+        padding: 'clamp(56px, 8vw, 90px) 0',
+        background: '#09101f',
+        borderBottom: '1px solid rgba(59,130,246,0.15)',
+      }}>
         <div className="container">
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '70px', alignItems: 'center' }}>
+          <div className="sl-about-grid">
+            {/* Left: text */}
             <div>
-              <div style={{ color: '#60a5fa', fontSize: '0.78rem', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: '12px' }}>
+              <div style={{
+                color: '#60a5fa', fontSize: '0.78rem', fontWeight: 700,
+                letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: '12px',
+              }}>
                 About Saalaram Solutions
               </div>
-              <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: '2.4rem', color: '#fff', fontWeight: 600, lineHeight: 1.15, marginBottom: '24px' }}>
-                Pioneering High-Performance Fenestration & Architectural Lighting
+              <h2 style={{
+                fontFamily: "'Playfair Display', serif",
+                fontSize: 'clamp(1.5rem, 5vw, 2.4rem)',
+                color: '#fff', fontWeight: 600, lineHeight: 1.15, marginBottom: '24px',
+              }}>
+                Pioneering High-Performance Fenestration &amp; Architectural Lighting
               </h2>
               <p style={{ color: 'rgba(255,255,255,0.65)', fontSize: '1rem', lineHeight: '1.78', marginBottom: '20px' }}>
-                Saalaram Solutions is South India’s premier manufacturer and installer of acoustic uPVC windows, architectural aluminum doors, motorized blinds, and luxury lighting systems.
+                Saalaram Solutions is South India's premier manufacturer and installer of acoustic uPVC windows,
+                architectural aluminum doors, motorized blinds, and luxury lighting systems.
               </p>
               <p style={{ color: 'rgba(255,255,255,0.65)', fontSize: '1rem', lineHeight: '1.78', marginBottom: '32px' }}>
-                Combining precision German hardware with ISO-certified fabrication, every window and door is engineered to withstand tropical heat, monsoon wind loads, and urban noise pollution.
+                Combining precision German hardware with ISO-certified fabrication, every window and door is engineered
+                to withstand tropical heat, monsoon wind loads, and urban noise pollution.
               </p>
 
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+              <div className="sl-about-checklist">
                 {[
                   '10,000+ Window Units Installed',
                   'ISO 9001:2015 Certified Plant',
@@ -179,15 +190,21 @@ export default function SaalaramHome({ onOpenQuoteModal }) {
               </div>
             </div>
 
-            <div style={{ background: '#111d33', border: '1px solid rgba(59,130,246,0.3)', padding: '24px' }}>
+            {/* Right: image card */}
+            <div style={{
+              background: '#111d33', border: '1px solid rgba(59,130,246,0.3)', padding: '24px',
+            }}>
               <img
                 src="/assets/logos/Saalaram.jpeg"
                 alt="Saalaram Solutions"
                 style={{ width: '100%', height: 'auto', display: 'block' }}
               />
               <div style={{ padding: '24px 20px 10px', color: 'rgba(255,255,255,0.7)', fontSize: '0.9rem', lineHeight: '1.7' }}>
-                <strong style={{ color: '#fff', display: 'block', fontSize: '1.1rem', marginBottom: '8px' }}>Saalaram Solutions Brand Legacy</strong>
-                Engineered fenestration and lighting solutions tailored for luxury villas, high-rise apartments, and commercial complexes across Tamil Nadu.
+                <strong style={{ color: '#fff', display: 'block', fontSize: '1.1rem', marginBottom: '8px' }}>
+                  Saalaram Solutions Brand Legacy
+                </strong>
+                Engineered fenestration and lighting solutions tailored for luxury villas, high-rise apartments,
+                and commercial complexes across Tamil Nadu.
               </div>
             </div>
           </div>
@@ -197,15 +214,15 @@ export default function SaalaramHome({ onOpenQuoteModal }) {
       {/* ── USP STRIP ── */}
       <section style={{ background: '#0e172a', borderBottom: '1px solid rgba(255,255,255,0.06)' }}>
         <div className="container">
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)' }}>
+          <div className="sl-usp-grid">
             {[
               { icon: ShieldCheck, title: '10-Year Warranty', sub: 'On all installed uPVC & aluminum frames' },
-              { icon: Award, title: 'German Hardware', sub: 'Multi-point safety locking systems' },
-              { icon: Layers, title: 'Double Glazed', sub: 'Up to 42dB sound reduction' },
-              { icon: Check, title: 'Free Installation', sub: 'Certified factory-trained technicians' },
+              { icon: Award,       title: 'German Hardware', sub: 'Multi-point safety locking systems' },
+              { icon: Layers,      title: 'Double Glazed',   sub: 'Up to 42dB sound reduction' },
+              { icon: Check,       title: 'Free Installation', sub: 'Certified factory-trained technicians' },
             ].map(({ icon: Icon, title, sub }, i) => (
               <div key={i} style={{
-                padding: '32px 24px',
+                padding: 'clamp(20px, 4vw, 32px) clamp(14px, 3vw, 24px)',
                 borderLeft: i > 0 ? '1px solid rgba(255,255,255,0.08)' : 'none',
                 textAlign: 'center',
               }}>
@@ -216,27 +233,33 @@ export default function SaalaramHome({ onOpenQuoteModal }) {
                 }}>
                   <Icon size={20} />
                 </div>
-                <div style={{ color: '#fff', fontWeight: 700, fontSize: '0.95rem', marginBottom: '4px' }}>{title}</div>
-                <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.8rem' }}>{sub}</div>
+                <div style={{ color: '#fff', fontWeight: 700, fontSize: '0.92rem', marginBottom: '4px' }}>{title}</div>
+                <div style={{ color: 'rgba(255,255,255,0.5)', fontSize: '0.78rem' }}>{sub}</div>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* ── CATEGORY QUICK ACCESS ── */}
-      <section style={{ padding: '90px 0', background: '#09101f' }}>
+      {/* ── CATEGORIES ── */}
+      <section style={{ padding: 'clamp(56px, 8vw, 90px) 0', background: '#09101f' }}>
         <div className="container">
           <div style={{ textAlign: 'center', maxWidth: '640px', margin: '0 auto 50px auto' }}>
-            <div style={{ color: '#60a5fa', fontSize: '0.78rem', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: '10px' }}>
+            <div style={{
+              color: '#60a5fa', fontSize: '0.78rem', fontWeight: 700,
+              letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: '10px',
+            }}>
               Product Categories
             </div>
-            <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: '2.4rem', color: '#fff', fontWeight: 600 }}>
-              Tailored for modern homes & commercial spaces
+            <h2 style={{
+              fontFamily: "'Playfair Display', serif",
+              fontSize: 'clamp(1.5rem, 5vw, 2.4rem)', color: '#fff', fontWeight: 600,
+            }}>
+              Tailored for modern homes &amp; commercial spaces
             </h2>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '28px' }}>
+          <div className="sl-categories-grid">
             {[
               {
                 icon: Square, title: 'Windows', count: 'uPVC & Aluminum',
@@ -271,9 +294,12 @@ export default function SaalaramHome({ onOpenQuoteModal }) {
                   <img src={img} alt={title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                   <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, #111d33 0%, transparent 60%)' }} />
                 </div>
-                <div style={{ padding: '24px 28px' }}>
-                  <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '10px' }}>
-                    <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: '1.4rem', color: '#fff', fontWeight: 600 }}>{title}</h3>
+                <div style={{ padding: 'clamp(16px, 3vw, 24px) clamp(18px, 3vw, 28px)' }}>
+                  <div style={{
+                    display: 'flex', alignItems: 'center', justifyContent: 'space-between',
+                    marginBottom: '10px', flexWrap: 'wrap', gap: '6px',
+                  }}>
+                    <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: '1.3rem', color: '#fff', fontWeight: 600 }}>{title}</h3>
                     <span style={{ color: '#60a5fa', fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em' }}>{count}</span>
                   </div>
                   <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.88rem', lineHeight: '1.6', marginBottom: '18px' }}>{desc}</p>
@@ -288,39 +314,48 @@ export default function SaalaramHome({ onOpenQuoteModal }) {
       </section>
 
       {/* ── FEATURED PRODUCTS ── */}
-      <section style={{ padding: '90px 0', background: '#0d172a', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
+      <section style={{ padding: 'clamp(56px, 8vw, 90px) 0', background: '#0d172a', borderTop: '1px solid rgba(255,255,255,0.06)' }}>
         <div className="container">
-          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: '40px' }}>
+          <div className="sl-featured-header">
             <div>
               <div style={{ color: '#60a5fa', fontSize: '0.78rem', fontWeight: 700, letterSpacing: '0.14em', textTransform: 'uppercase', marginBottom: '8px' }}>
                 Featured Catalogue
               </div>
-              <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: '2.2rem', color: '#fff', fontWeight: 600 }}>
+              <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(1.4rem, 5vw, 2.2rem)', color: '#fff', fontWeight: 600 }}>
                 Top-rated architectural systems
               </h2>
             </div>
             <button
               onClick={() => navigate('/saalaram/products')}
               style={{
-                padding: '10px 22px', background: 'transparent', border: '1px solid #2563eb', color: '#60a5fa',
-                fontFamily: 'Manrope, sans-serif', fontWeight: 700, fontSize: '0.85rem', cursor: 'pointer',
+                padding: '10px 22px', background: 'transparent',
+                border: '1px solid #2563eb', color: '#60a5fa',
+                fontFamily: 'Manrope, sans-serif', fontWeight: 700, fontSize: '0.85rem',
+                cursor: 'pointer', whiteSpace: 'nowrap', alignSelf: 'flex-end',
               }}
             >
               View Full Catalog →
             </button>
           </div>
 
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: '28px' }}>
+          <div className="sl-featured-grid">
             {staticFeatured.map((prod) => (
-              <div key={prod.id} style={{ background: '#111d33', border: '1px solid rgba(255,255,255,0.1)', overflow: 'hidden', display: 'flex', flexDirection: 'column' }}>
+              <div key={prod.id} style={{
+                background: '#111d33', border: '1px solid rgba(255,255,255,0.1)',
+                overflow: 'hidden', display: 'flex', flexDirection: 'column',
+              }}>
                 <div style={{ height: '220px', overflow: 'hidden', position: 'relative' }}>
                   <img src={prod.images[0]} alt={prod.name} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                  <span style={{ position: 'absolute', top: '12px', left: '12px', padding: '4px 10px', background: '#2563eb', color: '#fff', fontSize: '0.7rem', fontWeight: 700, textTransform: 'uppercase' }}>
+                  <span style={{
+                    position: 'absolute', top: '12px', left: '12px',
+                    padding: '4px 10px', background: '#2563eb', color: '#fff',
+                    fontSize: '0.7rem', fontWeight: 700, textTransform: 'uppercase',
+                  }}>
                     {prod.category}
                   </span>
                 </div>
                 <div style={{ padding: '24px', flex: 1 }}>
-                  <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: '1.2rem', color: '#fff', fontWeight: 600, marginBottom: '8px' }}>{prod.name}</h3>
+                  <h3 style={{ fontFamily: "'Playfair Display', serif", fontSize: '1.15rem', color: '#fff', fontWeight: 600, marginBottom: '8px' }}>{prod.name}</h3>
                   <p style={{ color: 'rgba(255,255,255,0.6)', fontSize: '0.86rem', lineHeight: '1.6', marginBottom: '16px' }}>{prod.description}</p>
                   <div style={{ background: 'rgba(15,25,46,0.6)', padding: '10px 14px', fontSize: '0.8rem', color: 'rgba(255,255,255,0.7)', marginBottom: '18px' }}>
                     <span style={{ color: '#60a5fa', fontWeight: 700 }}>Material: </span>{prod.material}
@@ -341,8 +376,138 @@ export default function SaalaramHome({ onOpenQuoteModal }) {
         </div>
       </section>
 
-      {/* ── CONTACT US FORM AT THE END OF THE PAGE ── */}
+      {/* ── CONTACT FORM ── */}
       <SaalaramContactForm />
+
+      {/* ════════════════════════ MOBILE RESPONSIVE STYLES ════════════════════════ */}
+      <style>{`
+        /* Hero */
+        .sl-hero-grid {
+          display: grid;
+          grid-template-columns: 1.1fr 0.9fr;
+          gap: 60px;
+          align-items: center;
+        }
+        .sl-hero-btns {
+          display: flex;
+          gap: 16px;
+          flex-wrap: wrap;
+        }
+
+        /* About */
+        .sl-about-grid {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 70px;
+          align-items: center;
+        }
+        .sl-about-checklist {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 16px;
+        }
+
+        /* USP Strip */
+        .sl-usp-grid {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+        }
+
+        /* Categories */
+        .sl-categories-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 28px;
+        }
+
+        /* Featured */
+        .sl-featured-header {
+          display: flex;
+          justify-content: space-between;
+          align-items: flex-end;
+          margin-bottom: 40px;
+          gap: 20px;
+          flex-wrap: wrap;
+        }
+        .sl-featured-grid {
+          display: grid;
+          grid-template-columns: repeat(3, 1fr);
+          gap: 28px;
+        }
+
+        /* ─── TABLET (≤ 900px) ─── */
+        @media (max-width: 900px) {
+          .sl-hero-grid {
+            grid-template-columns: 1fr;
+            gap: 32px;
+          }
+          .sl-hero-logo-panel { display: none !important; }
+
+          .sl-about-grid {
+            grid-template-columns: 1fr;
+            gap: 40px;
+          }
+
+          .sl-usp-grid {
+            grid-template-columns: repeat(2, 1fr);
+          }
+          .sl-usp-grid > div:nth-child(odd) { border-left: none !important; }
+          .sl-usp-grid > div:nth-child(3),
+          .sl-usp-grid > div:nth-child(4) {
+            border-top: 1px solid rgba(255,255,255,0.08);
+          }
+
+          .sl-categories-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+          }
+          .sl-featured-grid {
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+          }
+        }
+
+        /* ─── MOBILE (≤ 640px) ─── */
+        @media (max-width: 640px) {
+          .sl-hero-btns {
+            flex-direction: column;
+            width: 100%;
+          }
+          .sl-hero-btns > * {
+            width: 100% !important;
+            justify-content: center !important;
+          }
+
+          .sl-about-checklist {
+            grid-template-columns: 1fr;
+            gap: 12px;
+          }
+
+          .sl-usp-grid {
+            grid-template-columns: 1fr 1fr;
+          }
+          .sl-usp-grid > div {
+            border-left: none !important;
+            border-bottom: 1px solid rgba(255,255,255,0.08);
+          }
+
+          .sl-categories-grid {
+            grid-template-columns: 1fr;
+            gap: 16px;
+          }
+          .sl-featured-grid {
+            grid-template-columns: 1fr;
+            gap: 16px;
+          }
+        }
+
+        /* ─── SMALL MOBILE (≤ 400px) ─── */
+        @media (max-width: 400px) {
+          .sl-usp-grid {
+            grid-template-columns: 1fr;
+          }
+        }
+      `}</style>
     </div>
   );
 }

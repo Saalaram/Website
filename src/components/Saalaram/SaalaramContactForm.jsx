@@ -33,12 +33,13 @@ export default function SaalaramContactForm({ defaultSubject = '' }) {
   };
 
   return (
+    <>
     <section id="contact-us" style={{ background: '#09101f', color: '#fff', padding: 'clamp(60px, 8vw, 100px) 0', borderTop: '1px solid rgba(255,255,255,0.08)' }}>
       <div className="container">
         <div className="saalaram-contact-grid" style={{
           display: 'grid',
           gridTemplateColumns: '1fr 1.1fr',
-          gap: '70px',
+          gap: 'clamp(32px, 6vw, 70px)',
           alignItems: 'start',
         }}>
           {/* Left Column — Info */}
@@ -94,7 +95,7 @@ export default function SaalaramContactForm({ defaultSubject = '' }) {
           <div style={{
             background: '#111d33',
             border: '1px solid rgba(59,130,246,0.25)',
-            padding: '44px 40px',
+            padding: 'clamp(24px, 5vw, 44px) clamp(20px, 5vw, 40px)',
             boxShadow: '0 20px 50px rgba(0,0,0,0.35)',
           }}>
             <h3 style={{
@@ -135,7 +136,7 @@ export default function SaalaramContactForm({ defaultSubject = '' }) {
                   />
                 </div>
 
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+                <div className="sl-form-row">
                   <div>
                     <label style={{ display: 'block', color: 'rgba(255,255,255,0.8)', fontSize: '0.82rem', fontWeight: 700, marginBottom: '8px' }}>Phone Number *</label>
                     <input
@@ -226,5 +227,30 @@ export default function SaalaramContactForm({ defaultSubject = '' }) {
         </div>
       </div>
     </section>
+
+    <style>{`
+      .saalaram-contact-grid {
+        display: grid;
+        grid-template-columns: 1fr 1.1fr;
+      }
+      .sl-form-row {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 16px;
+      }
+      @media (max-width: 900px) {
+        .saalaram-contact-grid {
+          grid-template-columns: 1fr !important;
+          gap: 40px !important;
+        }
+      }
+      @media (max-width: 560px) {
+        .sl-form-row {
+          grid-template-columns: 1fr !important;
+        }
+      }
+    `}</style>
+    </>
+
   );
 }

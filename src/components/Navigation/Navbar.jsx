@@ -8,6 +8,12 @@ export default function Navbar({ onOpenQuoteModal }) {
   const [scrolled, setScrolled] = useState(false);
   const [mobileOpen, setMobileOpen] = useState(false);
 
+  // Lock body scroll when mobile menu is open
+  useEffect(() => {
+    document.body.style.overflow = mobileOpen ? 'hidden' : '';
+    return () => { document.body.style.overflow = ''; };
+  }, [mobileOpen]);
+
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 30);
     window.addEventListener('scroll', onScroll);
@@ -126,18 +132,20 @@ export default function Navbar({ onOpenQuoteModal }) {
               <img
                 src="/assets/logos/Saalaram_Transparent.png"
                 alt="Saalaram Solutions"
+                className="navbar-logo-img"
                 style={{
-                  height: '56px',
+                  height: '52px',
                   width: 'auto',
                   objectFit: 'contain',
-                  maxHeight: '56px',
+                  maxHeight: '52px',
                 }}
               />
             ) : (
               <img
                 src="/assets/logos/Aram_Logo_Color_Transaparent.png"
                 alt="Aram Architecture"
-                style={{ height: '68px', width: 'auto', objectFit: 'contain', maxHeight: '68px' }}
+                className="navbar-logo-img"
+                style={{ height: '64px', width: 'auto', objectFit: 'contain', maxHeight: '64px' }}
               />
             )}
           </div>
@@ -264,28 +272,81 @@ export default function Navbar({ onOpenQuoteModal }) {
             )}
           </ul>
 
-          {/* Mobile hamburger */}
+          {/* Mobile-only cross-portal button — shown via CSS class, placed before hamburger */}
+          {isSaalaramPortal ? (
+            <button
+              onClick={() => goTo('/home')}
+              className="mobile-portal-btn"
+              aria-label="Go to ARAM Architecture"
+              style={{
+                padding: '7px 14px',
+                background: '#b68c5a',
+                border: '1px solid #b68c5a',
+                color: '#171817',
+                fontSize: '0.75rem',
+                fontWeight: 800,
+                fontFamily: 'Manrope, sans-serif',
+                letterSpacing: '0.1em',
+                textTransform: 'uppercase',
+                cursor: 'pointer',
+                flexShrink: 0,
+                marginLeft: 'auto',
+                marginRight: '10px',
+                boxShadow: '0 0 12px rgba(182,140,90,0.35)',
+              }}
+            >
+              ARAM
+            </button>
+          ) : (
+            <button
+              onClick={() => goTo('/saalaram')}
+              className="mobile-portal-btn"
+              aria-label="Go to Saalaram Solutions"
+              style={{
+                padding: '7px 14px',
+                background: '#1250b5',
+                border: '1px solid #4085f5',
+                color: '#ffffff',
+                fontSize: '0.75rem',
+                fontWeight: 800,
+                fontFamily: 'Manrope, sans-serif',
+                letterSpacing: '0.1em',
+                textTransform: 'uppercase',
+                cursor: 'pointer',
+                flexShrink: 0,
+                marginLeft: 'auto',
+                marginRight: '10px',
+                boxShadow: '0 0 12px rgba(18,80,181,0.4)',
+              }}
+            >
+              SAALARAM
+            </button>
+          )}
+
+          {/* Mobile hamburger — shown/hidden via CSS class */}
           <button
             onClick={() => setMobileOpen(!mobileOpen)}
             id="mobile-menu-btn"
-            aria-label="Open menu"
+            className="mobile-menu-btn"
+            aria-label={mobileOpen ? 'Close menu' : 'Open menu'}
+            aria-expanded={mobileOpen}
             style={{
-              display: 'none',
-              width: '45px', height: '45px',
+              width: '44px', height: '44px',
               background: 'transparent',
-              border: 0,
+              border: '1px solid rgba(255,255,255,0.18)',
               cursor: 'pointer',
               color: '#fff',
               padding: 0,
               alignItems: 'center',
               justifyContent: 'center',
+              flexShrink: 0,
             }}
           >
-            {mobileOpen ? <X size={24} color="#fff" /> : (
+            {mobileOpen ? <X size={22} color="#fff" /> : (
               <div>
-                <span style={{ display: 'block', width: '25px', height: '2px', margin: '6px auto', background: '#fff' }} />
-                <span style={{ display: 'block', width: '25px', height: '2px', margin: '6px auto', background: '#fff' }} />
-                <span style={{ display: 'block', width: '25px', height: '2px', margin: '6px auto', background: '#fff' }} />
+                <span style={{ display: 'block', width: '22px', height: '2px', margin: '5px auto', background: '#fff', transition: 'all 0.3s' }} />
+                <span style={{ display: 'block', width: '22px', height: '2px', margin: '5px auto', background: '#fff', transition: 'all 0.3s' }} />
+                <span style={{ display: 'block', width: '14px', height: '2px', margin: '5px auto', background: '#fff', transition: 'all 0.3s' }} />
               </div>
             )}
           </button>
@@ -293,18 +354,33 @@ export default function Navbar({ onOpenQuoteModal }) {
 
         {/* Mobile Slide-in Menu */}
         {mobileOpen && (
+          <>
+            {/* Click-outside overlay */}
+            <div
+              onClick={() => setMobileOpen(false)}
+              style={{
+                position: 'fixed',
+                inset: 0,
+                top: '68px',
+                background: 'rgba(0,0,0,0.55)',
+                zIndex: 998,
+                backdropFilter: 'blur(2px)',
+              }}
+            />
           <div style={{
             position: 'fixed',
-            top: '88px', right: 0,
-            width: 'min(380px, 88%)',
-            height: 'calc(100vh - 88px)',
-            padding: '45px 35px',
-            background: isSaalaramPortal ? 'rgba(13,23,42,0.98)' : 'rgba(17,18,17,0.98)',
+            top: '68px', right: 0,
+            width: 'min(360px, 88vw)',
+            height: 'calc(100dvh - 68px)',
+            overflowY: 'auto',
+            padding: '40px 28px 40px',
+            background: isSaalaramPortal ? 'rgba(10,18,35,0.99)' : 'rgba(14,15,14,0.99)',
             display: 'flex',
             flexDirection: 'column',
-            gap: '22px',
+            gap: '20px',
             zIndex: 999,
-            borderLeft: '1px solid rgba(255,255,255,0.06)',
+            borderLeft: '1px solid rgba(255,255,255,0.08)',
+            boxShadow: '-20px 0 60px rgba(0,0,0,0.4)',
           }}>
             {isSaalaramPortal ? (
               <>
@@ -394,15 +470,11 @@ export default function Navbar({ onOpenQuoteModal }) {
               </>
             )}
           </div>
+          </>
         )}
       </header>
 
-      <style>{`
-        @media (max-width: 1100px) {
-          .nav-links { display: none !important; }
-          #mobile-menu-btn { display: flex !important; }
-        }
-      `}</style>
+      {/* Mobile show/hide handled via .mobile-menu-btn CSS class in index.css */}
     </>
   );
 }

@@ -234,18 +234,21 @@ export default function ProjectsPage({ onOpenQuoteModal }) {
   const displayed = activeGroup === 'construction' ? constructionProjects : interiorProjects;
 
   return (
-    <div style={{ paddingTop: '88px' }}>
+    <div style={{ paddingTop: 'var(--nav-h)' }}>
 
       {/* ── HERO ── */}
-      <section style={{
-        position: 'relative',
-        height: '380px',
-        display: 'flex',
-        alignItems: 'center',
-        background: `linear-gradient(rgba(15,15,15,0.80), rgba(15,15,15,0.80)),
-          url("https://images.unsplash.com/photo-1527576539890-dfa815648363?auto=format&fit=crop&w=2000&q=85") center/cover`,
-        color: '#fff',
-      }}>
+      <section
+        className="page-hero-banner"
+        style={{
+          position: 'relative',
+          height: '360px',
+          display: 'flex',
+          alignItems: 'center',
+          background: `linear-gradient(rgba(15,15,15,0.80), rgba(15,15,15,0.80)),
+            url("https://images.unsplash.com/photo-1527576539890-dfa815648363?auto=format&fit=crop&w=2000&q=85") center/cover`,
+          color: '#fff',
+        }}
+      >
         <div className="container">
           <div className="eyebrow" style={{ color: 'var(--primary)' }}>Our Work</div>
           <h1 style={{
@@ -269,13 +272,16 @@ export default function ProjectsPage({ onOpenQuoteModal }) {
         <div className="container">
 
           {/* Group Toggle */}
-          <div style={{
-            display: 'flex',
-            gap: '0',
-            marginBottom: '50px',
-            border: '1px solid var(--border)',
-            width: 'fit-content',
-          }}>
+          <div
+            className="projects-toggle"
+            style={{
+              display: 'flex',
+              gap: '0',
+              marginBottom: '50px',
+              border: '1px solid var(--border)',
+              width: 'fit-content',
+            }}
+          >
             <button
               onClick={() => setActiveGroup('construction')}
               style={{
@@ -371,7 +377,7 @@ export default function ProjectsPage({ onOpenQuoteModal }) {
       {lightbox && (
         <div className="modal-overlay" onClick={() => setLightbox(null)}>
           <div className="modal-content" onClick={e => e.stopPropagation()} style={{ padding: 0, overflow: 'hidden' }}>
-            <div style={{ position: 'relative', height: '380px' }}>
+            <div style={{ position: 'relative', height: '380px' }} className="lightbox-image">
               <img
                 src={lightbox.coverImage}
                 alt={lightbox.title}
@@ -400,7 +406,7 @@ export default function ProjectsPage({ onOpenQuoteModal }) {
                 }}>{lightbox.title}</h3>
               </div>
             </div>
-            <div style={{ padding: '2.5rem', background: 'var(--dark)' }}>
+            <div style={{ padding: '2.5rem', background: 'var(--dark)' }} className="lightbox-body">
               <p style={{ color: 'rgba(255,255,255,0.65)', fontSize: '0.97rem', lineHeight: 1.75, marginBottom: '2rem' }}>
                 {lightbox.description}
               </p>
